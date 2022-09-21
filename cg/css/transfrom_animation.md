@@ -21,20 +21,17 @@
 + 输入：matrix(a, b, c, d, e, f) 
   - 条件：ad - bc 不 为 0，
 + 输出：6 个 互相独立的数字 (tx, ty, r, x, y, s)
-  - 通过 QR 变换 分解为 = T(tx, ty) R(r rad) S(x, y) Skew(z°, 0) [ 令 s = Math.tan(z°)]
+  - 通过 QR 变换 分解为 = T(tx, ty) R(r rad) S(x, y) Skew(z°, 0) [ 令 s = Math.tan(z°)] 其中：
+    * tx = e,
+    * ty = f,
+    * r = Math.atan2(b, a)
+    * x = Math.sqrt(a * a + b * b)
+    * y = (a * d - b * c) / x
+    * s = (a * c + b * d) / (x * x)
 
 推导见下图：
 
 ![](img/1.jpg)
-
-其中：
-
-+ tx = e,
-+ ty = f,
-+ r = Math.atan2(b, a)
-+ x = Math.sqrt(a * a + b * b)
-+ y = (a * d - b * c) / x
-+ s = (a * c + b * d) / (x * x)
 
 ### 1.3、矩阵 插值
 
