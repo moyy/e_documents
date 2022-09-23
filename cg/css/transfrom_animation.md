@@ -134,11 +134,11 @@ from, to 两个关键帧 序列 如下：
 操作：
 
 + 1、分解
-  - 将 from 的 M 通过 2.2 得到 6个数字 
-  - 将   to 的 M 通过 2.2 得到 6个数字 
+  - 将 from 的 M 通过 5.1 得到 6个数字  tx1, ty1, r1, x1, y1, s1
+  - 将   to 的 M 通过 5.1 得到 6个数字  tx2, ty2, r2, x2, y2, s2
 + 2、结果：
-  - from = tx, ty, r, x, y, s
-  -   to = tx, ty, r, x, y, s
+  - from = tx1, ty1, r1, x1, y1, s1
+  -   to = tx1, ty1, r1, x1, y1, s1
 + 3、逐个数字 依次 插值
   - r = tx, ty, r, x, y, s
 + 4、将 r 还原为 矩阵 matrix(a, b, c, d, e, f)
