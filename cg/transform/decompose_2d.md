@@ -119,7 +119,7 @@ $$M = \left(
 |--|--|--|--|
 |平移|$$T(t_x, t_y)$$|$t_x=e$ $t_y=f$|
 |旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|
-|缩放|$S(x, y)$|$x = \sqrt{a^2 + b^2}; y = \frac{a \times d - b \times c}$|见 3.5，x，y 可正可负，可以进一步分解为：反射 和 纯缩放|
+|缩放|$S(x, y)$|$x = \sqrt{a^2 + b^2}; y = \frac{a \times d - b \times c}{x}$|见 3.5，x，y 可正可负，可以进一步分解为：反射 和 纯缩放|
 |错切|sHear(h_x, 0), $s=tan(h_x)$|$s=\frac{a \times c + b \times d}{x^2}$|
 
 ### 3.3、平移分量 $T(t_x, t_y)$
