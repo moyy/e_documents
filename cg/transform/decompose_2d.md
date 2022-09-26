@@ -83,7 +83,7 @@ $$M = \left(
     \end{matrix}
 \right)$$
 
-变换后: $v_1 = M \vec{v}$
+变换后: $\vec{v_1} = M \vec{v}$
 
 任何 2D 可逆变换 的 齐次矩阵  $M_{3 \times 3}$，可以表示成：
 
