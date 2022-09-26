@@ -105,14 +105,20 @@ $$M = \left(
 
 |变换|表达|值|说明|
 |--|--|--|--|
-|平移|$T(t_x, t_y)$|$t_x=e; t_y=f$|
-|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a), $\theta in [-\pi, pi]$|
+|平移|$T(t_x, t_y)$|$t_x=e; t_y=f$||
+|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|$\theta in [-\pi, pi]$|
 |错切|$H(h_x, 0)$|$s=\frac{a \times c + b \times d}{a \times d - b \times c}$|$s=tan(h_x)$|
-|缩放|$S(x, y)$|$x^2 = a^2 + b^2; y = \frac{a \times d - b \times c}{x}$|如 $a \ne 0$, 则 x 与 a 同号|
+|缩放|$S(x, y)$|$x^2 = a^2 + b^2; y = \frac{a \times d - b \times c}{x}$|x 正负号如下所示|
 
-+ $\theta in [-\pi, pi]$, $cos\theta \ge 0$, $cos\theta \ge 0$, 
-+ $x \times cos\theta = a$
-+ $x \times sin\theta = b$
+x 正负号规则：
+
++ a 不为0
+    - b > 0, x与a同号
+    - b < 0, x与a反号
+    - b = 0, x > 0
++ a 不为0
+    - b > 0, x与b同号
+    - b < 0, x与b反号
 
 ### 3.3、平移分量 $T(t_x, t_y)$
 
@@ -195,7 +201,38 @@ $$\frac{s \times cos\theta - sin\theta}{s \times sin\theta + cos\theta} = \frac{
 
 代入 4式, 得: $y = \frac{a \times d - b \times c}{x}$
 
-### 3.5、从 S 分解出 Rl: $S = Rl \times S_1$
+### 3.5、x 正负号 规则 推导
+
++ $\theta$ 由 $\theta$ = Math.atan2(b, a) 唯一确定, $\theta in [-\pi, pi]$
++ 当 $\theta in (-\frac{\pi}{2}, \frac{\pi}{2})$ 时, $cos\theta \gt 0$, $x \times cos\theta = a$, 所以 x与a同号
++ 当 $\theta in (-\pi, -\frac{\pi}{2}) \union (\frac{\pi}{2}\pi, \pi)$ 时, $cos\theta \lt 0$, $x \times cos\theta = a$, 所以 x与a反号
++ 当 $\theta = \frac{\pi}{2}$ 时, $sin\theta = 1$, $x \times sin\theta = b$, 所以 x与b同号
++ 当 $\theta = -\frac{\pi}{2}$ 时, $sin\theta = -1$, $x \times sin\theta = b$, 所以 x与b反号
+
+下面看什么时候，$\theta 处于 $(-\frac{\pi}{2}, \frac{\pi}{2})$
+
+|a|b|$\theta$|x|
+|--|--|--|--|
+|> 0|> 0|(0, $\frac{\pi}{2}$)|x与a同号|
+|< 0|> 0|($-\frac{\pi}{2}$, 0)|x与a同号|
+|> 0|= 0|0|x = a > 0|
+|< 0|= 0|$\pi$|x = -a > 0|
+|< 0|< 0|($-\pi$, $-\frac{\pi}{2}$)|x与a 反号|
+|> 0|< 0|($\frac{\pi}{2}$, $\frac{\pi}$)|x与a 反号|
+|= 0|> 0|$\frac{\pi}{2}$|x = b, x与b同号|
+|= 0|< 0|$-\frac{\pi}{2}$|x = -b, x与b反号|
+
+所以:
+
++ a 不为0
+    - b > 0, x与a同号
+    - b < 0, x与a反号
+    - b = 0, x > 0
++ a 不为0
+    - b > 0, x与b同号
+    - b < 0, x与b反号
+
+### 3.6、从 S 分解出 Rl: $S = Rl \times S_1$
 
 $$\left(
     \begin{matrix}
