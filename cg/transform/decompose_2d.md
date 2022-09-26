@@ -305,5 +305,6 @@ $$\left(
 
 ## 4、附录：弧度 和 度 的 转换
 
-+ 度 变 弧度：$\theta = \pi\frac{x\degree}{180\degree}$
-+ 弧度 变 度：$x\degree = 180\degree\frac{\theta}{\pi}$
+度 变 弧度：$\theta = \pi\frac{x\degree}{180\degree}$
+
+弧度 变 度：$x\degree = 180\degree\frac{\theta}{\pi}$
