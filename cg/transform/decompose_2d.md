@@ -6,7 +6,7 @@
 
 ## 2、表示
 
-### 2.1、平移 Translate：$\vec{t}=\{t_x, t_y\}$
+### 2.1、平移 Translate：$\vec{t}$ = $\{t_x, t_y\}$
 
 $$T = \left(
     \begin{matrix}
@@ -20,13 +20,13 @@ $$T = \left(
 
 **注：** $r_x, r_y \in \{1, -1\}$
 
-$Rl = \left(
+$$Rl = \left(
     \begin{matrix}
     r_x & 0 & 0 \\
     0 & r_y & 0 \\
     0 & 0 & 1 \\
     \end{matrix}
-\right)$
+\right)$$
 
 ### 2.3、旋转 Rotate：$\theta$
 
@@ -34,52 +34,52 @@ $Rl = \left(
   - 逆时针，$\theta$ 为 正数
   - 顺时针，$\theta$ 为 负数
 
-$R = \left(
+$$R = \left(
     \begin{matrix}
     cos(\theta) & -sin(\theta) & 0 \\
     sin(\theta) & cos(\theta) & 0 \\
     0 & 0 & 1 \\
     \end{matrix}
-\right)$
+\right)$$
 
 ### 2.4、缩放 Scale：$\vec{s}=\{x, y\}$
 
 **注：** $x, y$ 均为 非负数
 
-$S = \left(
+$$S = \left(
     \begin{matrix}
     x & 0 & 0 \\
     0 & y & 0 \\
     0 & 0 & 1 \\
     \end{matrix}
-\right)$
+\right)$$
 
 ### 2.5、错切 Shear/Skew：$\vec{h}=\{h_x, h_y\}$
 
 + **单位：** $h_x, h_y$ 单位是 弧度
 + **作用：** ，将 矩阵 变 平行四边形
 
-$H = \left(
+$$H = \left(
     \begin{matrix}
     1 & tan(h_x) & 0 \\
     tan(h_y) & 1 & 0 \\
     0 & 0 & 1 \\
     \end{matrix}
-\right)$
+\right)$$
 
 ## 3、矩阵分解
 
 ### 3.1、概述
 
-+ 向量（齐次坐标 表示）：$\vec{v}=\{v_x, v_y, v_z, 1\}$
-+ 矩阵（齐次坐标 表示）：$M = \left(
++ 向量（齐次坐标 表示）：$\vec{v}$ = $\{v_x, v_y, v_z, 1\}$$
++ 矩阵（齐次坐标 表示）：$M$ = $\left(
     \begin{matrix}
     a & c & e \\
     b & d & f \\
     0 & 0 & 1 \\
     \end{matrix}
 \right)$
-+ 变换后：$v_1 = M \vec{v}$
++ 变换后：$v_1$ = $M \vec{v}$
 
 任何 2D 可逆变换 的 齐次矩阵  $M_{3 \times 3}$，可以表示成：
 
