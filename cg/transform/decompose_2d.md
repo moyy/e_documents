@@ -71,23 +71,17 @@ $$H = \left(
 
 ### 3.1、概述
 
-向量（齐次坐标 表示）
+向量(齐次坐标 表示), $\vec{v} = \{v_x, v_y, v_z, 1\}$
 
-$$\vec{v} = \{v_x, v_y, v_z, 1\}$$
-
-矩阵（齐次坐标 表示）
-
-$$M = \left(
+矩阵(齐次坐标 表示), $M = \left(
     \begin{matrix}
     a & c & e \\
     b & d & f \\
     0 & 0 & 1 \\
     \end{matrix}
-\right)$$
+\right)$
 
-变换后：
-
-$$v_1 = M \vec{v}$$
+变换后: $v_1 = M \vec{v}$
 
 任何 2D 可逆变换 的 齐次矩阵  $M_{3 \times 3}$，可以表示成：
 
@@ -107,7 +101,7 @@ $$M = \left(
 
 |变换|表达|值|说明|
 |--|--|--|--|
-|平移|$$T(t_x, t_y)$$|$t_x=e$ $t_y=f$|
+|平移|$T(t_x, t_y)$|$t_x=e$ $t_y=f$|
 |旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|
 |缩放|$S(x, y)$|$x = \sqrt{a^2 + b^2}; y = \frac{a \times d - b \times c}{x}$|见 3.5，x，y 可正可负，可以进一步分解为：反射 和 纯缩放|
 |错切|sHear(h_x, 0), $s=tan(h_x)$|$s=\frac{a \times c + b \times d}{x^2}$|
