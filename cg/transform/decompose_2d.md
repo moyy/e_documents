@@ -176,38 +176,38 @@ $$
 
 由 1式，3式，得：
 
-$$
+$
 \left\{ 
 \begin{cases}
     c = s \times a - y \times sin\theta \\ 
     d = s \times b + y \times cos\theta
 \end{cases}
 \right. 
-$$
+$
 
-$$
+$
 \left\{ 
 \begin{cases}
     y \times sin\theta = s \times a - c \\ 
     y \times cos\theta = d - s \times b
 \end{cases}
 \right. 
-$$
+$
 
-$$\frac{s \times a - c}{d - s \times b} = \frac{sin\theta}{cos\theta} = tan\theta = \frac{b}{a}$$
+$\frac{s \times a - c}{d - s \times b} = \frac{sin\theta}{cos\theta} = tan\theta = \frac{b}{a}$
 
 则：
 
-$$s = \frac{a \times c + b \times d}{a^2 + b^2} = \frac{a \times c + b \times d}{x^2}$$
+$s = \frac{a \times c + b \times d}{a^2 + b^2} = \frac{a \times c + b \times d}{x^2}$
 
 5式，6式，得：
 
-$$y^2 = (s \times a - c)^2 + (d - s \times b)^2$$
+$y^2 = (s \times a - c)^2 + (d - s \times b)^2$
 
-$$
+$
 y = \frac{a \times d - b \times c}{\sqrt{a^2+b^2}}
   = \frac{a \times d - b \times c}{\sqrt{a^2+b^2}}
-$$
+$
 
 ### 3.5、从 S 分解出 Rl: $S = Rl \times S_1$
 
