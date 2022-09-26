@@ -203,9 +203,9 @@ $$\frac{s \times cos\theta - sin\theta}{s \times sin\theta + cos\theta} = \frac{
 
 ### 3.5、x 正负号 规则 推导
 
-+ $\theta$ 由 $\theta$ = Math.atan2(b, a) 唯一确定, $\theta in [-\pi, pi]$
-+ 当 $\theta in (-\frac{\pi}{2}, \frac{\pi}{2})$ 时, $cos\theta \gt 0$, $x \times cos\theta = a$, 所以 x与a同号
-+ 当 $\theta in (-\pi, -\frac{\pi}{2}) \union (\frac{\pi}{2}\pi, \pi)$ 时, $cos\theta \lt 0$, $x \times cos\theta = a$, 所以 x与a反号
++ $\theta$ 由 $\theta$ = Math.atan2(b, a) 唯一确定, $\theta \in [-\pi, pi]$
++ 当 $\theta \in (-\frac{\pi}{2}, \frac{\pi}{2})$ 时, $cos\theta \gt 0$, $x \times cos\theta = a$, 所以 x与a同号
++ 当 $\theta \in (-\pi, -\frac{\pi}{2}) \bigcup (\frac{\pi}{2}, \pi)$ 时, $cos\theta \lt 0$, $x \times cos\theta = a$, 所以 x与a反号
 + 当 $\theta = \frac{\pi}{2}$ 时, $sin\theta = 1$, $x \times sin\theta = b$, 所以 x与b同号
 + 当 $\theta = -\frac{\pi}{2}$ 时, $sin\theta = -1$, $x \times sin\theta = b$, 所以 x与b反号
 
