@@ -123,7 +123,7 @@ $$M = \left(
 |变换|表达|值|说明|
 |--|--|--|--|
 |平移|$T(t_x, t_y)$|$t_x=e; t_y=f$||
-|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|$\theta in [-\pi, pi]$|
+|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|$\theta \in [-\pi, pi]$|
 |错切|$H(h_x, 0)$|$s=\frac{a \times c + b \times d}{a \times d - b \times c}$|$s=tan(h_x)$|
 |缩放|$S(x, y)$|$x^2 = a^2 + b^2; y = \frac{a \times d - b \times c}{x}$|x 正负号如下所示|
 
