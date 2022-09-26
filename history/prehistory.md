@@ -29,7 +29,10 @@
 
 + [B站：生物演化年表](https://www.bilibili.com/video/BV17T4y1B79h/?spm_id_from=333.337.search-card.all.click&vd_source=61f266a07757af5d2720146e0634f7d6)
 
-地址年代：宙、代、纪、世、期、时
+术语：
+
++ 地质年代：宙、代、纪、世、期、时
++ 生物分类：界、门、纲、目、科、属、种
 
 ## 1、隐生宙 (47亿-5.4亿)
 
