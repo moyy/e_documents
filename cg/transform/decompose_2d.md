@@ -31,8 +31,8 @@ $$Rl = \left(
 ### 2.3、旋转 Rotate $\theta$
 
 + **单位：** $\theta$ 的单位：弧度
-  - 逆时针，$\theta$ 为 正数
-  - 顺时针，$\theta$ 为 负数
+  - 逆时针, $\theta$ 为 正数
+  - 顺时针, $\theta$ 为 负数
 
 $$R = \left(
     \begin{matrix}
@@ -54,7 +54,7 @@ $$S = \left(
     \end{matrix}
 \right)$$
 
-### 2.5、错切 Shear/Skew，$\vec{h}=\\{h_x, h_y\\}$
+### 2.5、错切 Shear/Skew,  $\vec{h}=\\{h_x, h_y\\}$
 
 + **单位: ** $h_x, h_y$ 单位是 弧度
 + **作用: ** 将 矩阵 变 平行四边形
