@@ -121,7 +121,7 @@ from, to 两个关键帧 序列 如下：
 
 + 输入：matrix(a, b, c, d, e, f) 
   - 条件：ad - bc 不 为 0，
-+ 输出：6 个 互相独立的数字 T(tx, ty) R(r rad) S(x, y) Skew(z°, 0) [ 令 s = Math.tan(z°)] 其中
++ 输出：6 个 互相独立的数字 $M = T(t_x, t_y) \times R(\theta) \times Rl(r_x, r_y) \times S(x, y) \times H(h_x, 0)$
     
 |变换|表达|值|说明|
 |--|--|--|--|
@@ -143,12 +143,16 @@ from, to 两个关键帧 序列 如下：
 + 3、逐个数字 依次 插值
   - r = tx, ty, r, x, y, s
 + 4、将 r 还原为 矩阵 matrix(a, b, c, d, e, f)
-  - a = x * cos(r)
-  - b = x * sin(r)
-  - c = s * a - y * sin(r)
-  - d = s * b + y * cos(r)
-  - e = tx
-  - f = ty
+
+$$
+\left(
+    \begin{matrix}
+    x \times cos\theta & s \times x \times cos\theta - y \times sin\theta \\ t_x
+    x \times sin\theta & s \times x \times sin\theta + y \times cos\theta\\ t_y
+    0 & 0 & 1
+    \end{matrix}
+\right)
+$$
 
 ## 5.3、[2D 矩阵分解 推导 点这里](../transform/decompose_2d.md)
 
