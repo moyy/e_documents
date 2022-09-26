@@ -147,8 +147,8 @@ from, to 两个关键帧 序列 如下：
 $$
 \left(
     \begin{matrix}
-    x \times cos\theta & s \times x \times cos\theta - y \times sin\theta \\ t_x
-    x \times sin\theta & s \times x \times sin\theta + y \times cos\theta\\ t_y
+    x \times cos\theta & s \times x \times cos\theta - y \times sin\theta & t_x \\ 
+    x \times sin\theta & s \times x \times sin\theta + y \times cos\theta & t_y \\ 
     0 & 0 & 1
     \end{matrix}
 \right)
@@ -181,3 +181,6 @@ to = P2 * T2 * R2 * S2 * K2
 + 得到 插值后的 P * T * R * S * K
 
 ### 6.3、将 P * T * R * S * K 变回 矩阵
+
+### 6.4、[3D 矩阵分解 推导 点这里](../transform/decompose_3d.md)
+
