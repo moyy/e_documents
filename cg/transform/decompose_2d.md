@@ -1,15 +1,5 @@
 # 2D 变换矩阵 分解
 
-$\theta=x^2$
-
-du $\theta=x^2$
-
-度 $\theta=x^2$
-
-度 变 弧度 $\theta=x^2$
-
-弧度 变 度 $x\degree=180\degree\frac{\theta}{\pi}$
-
 ## 1、目的
 
 将 2D 仿射变换 的 齐次坐标 3*3矩阵，分解为 平移、反射、旋转、缩放、错切 的 组合
@@ -315,6 +305,5 @@ $$\left(
 
 ## 4、附录：弧度 和 度 的 转换
 
-度 变 弧度：$\theta=\pi\frac{x\degree}{180\degree}$
-
-弧度 变 度：$x\degree=180\degree\frac{\theta}{\pi}$
++ 度 变 弧度 $\theta = \pi \frac{x\degree}{180\degree}$
++ 弧度 变 度 $x\degree=180\degree\frac{\theta}{\pi}$
