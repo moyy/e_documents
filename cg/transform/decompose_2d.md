@@ -196,9 +196,7 @@ $$
 
 $$\frac{s \times a - c}{d - s \times b} = \frac{sin\theta}{cos\theta} = tan\theta = \frac{b}{a}$$
 
-则: 
-
-$s = \frac{a \times c + b \times d}{a^2 + b^2} = \frac{a \times c + b \times d}{x^2}$
+则: $s = \frac{a \times c + b \times d}{a^2 + b^2} = \frac{a \times c + b \times d}{x^2}$
 
 5式, 6式, 得: $y^2 = (s \times a - c)^2 + (d - s \times b)^2$
 
