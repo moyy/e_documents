@@ -121,14 +121,14 @@ from, to 两个关键帧 序列 如下：
 
 + 输入：matrix(a, b, c, d, e, f) 
   - 条件：ad - bc 不 为 0，
-+ 输出：6 个 互相独立的数字 (tx, ty, r, x, y, s)
-  - 通过 QR 变换 分解为 = T(tx, ty) R(r rad) S(x, y) Skew(z°, 0) [ 令 s = Math.tan(z°)] 其中
-    * tx = e,
-    * ty = f,
-    * r = Math.atan2(b, a)
-    * x = Math.sqrt(a * a + b * b)
-    * y = (a * d - b * c) / x
-    * s = (a * c + b * d) / (x * x)
++ 输出：6 个 互相独立的数字 T(tx, ty) R(r rad) S(x, y) Skew(z°, 0) [ 令 s = Math.tan(z°)] 其中
+    
+|变换|表达|值|说明|
+|--|--|--|--|
+|平移|$T(t_x, t_y)$|$t_x=e$ $t_y=f$|
+|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|
+|缩放|$S(x, y)$|$x = \sqrt{a^2 + b^2}; y = \frac{a \times d - b \times c}{x}$|x，y 可正可负|
+|错切|sHear(h_x, 0), $s=tan(h_x)$|$s=\frac{a \times c + b \times d}{x^2}$|
 
 ### 5.2、矩阵 插值
 
