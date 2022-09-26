@@ -150,7 +150,7 @@ $$M = \left(
     \end{matrix}
 \right)$$
 
-条件：$(a \times d - b \times c) \ne 0$
+条件: $(a \times d - b \times c) \ne 0$
 
 输出: 6 个 互相独立的数字 $(t_x, t_y, \theta, s, x, y)$
 
