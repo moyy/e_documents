@@ -177,7 +177,6 @@ $$
 由 1式，3式，得：
 
 $$
-
 \left\{ 
     \begin{cases}
         c = s \times a - y \times sin\theta \\ 
@@ -239,7 +238,7 @@ $$S_1 = \left(
     \end{matrix}
 \right)$$
 
-其中：$sign(a)$ 是 符号函数，取 a 的 正负号
+其中: $sign(a)$ 是 符号函数，取 a 的 正负号
 
 $$sign(a) = \begin{cases}
     1, x \gt 0 \\
