@@ -141,7 +141,17 @@ $$M = \left(
 |平移|$T(t_x, t_y)$|$t_x=e; t_y=f$|
 |旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|单位：弧度|
 |错切|H($h_x$, 0)|$s=\frac{a \times c + b \times d}{a \times d - b \times c}$|$h_x=arctan(s)$|
-|缩放|$S(x, y)$|$x^2 = a^2 + b^2; y = \frac{a \times d - b \times c}{x}$|如 $a \ne 0$ 则 x 与 a 同号；否则：|
+|缩放|$S(x, y)$|$x^2 = a^2 + b^2; y = \frac{a \times d - b \times c}{x}$|x 正负号规则 如下|
+
+x 正负号规则：
+
++ a 不为0
+    - b > 0, x与a同号
+    - b < 0, x与a反号
+    - b = 0, x > 0
++ a 不为0
+    - b > 0, x与b同号
+    - b < 0, x与b反号
 
 ### 5.2、矩阵 插值
 
