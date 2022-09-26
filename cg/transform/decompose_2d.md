@@ -73,7 +73,9 @@ $$H = \left(
 
 向量(齐次坐标 表示), $\vec{v} = \\{v_x, v_y, v_z, 1\\}$
 
-矩阵(齐次坐标 表示), $$M = \left(
+矩阵(齐次坐标 表示)
+
+$$M = \left(
     \begin{matrix}
     a & c & e \\
     b & d & f \\
