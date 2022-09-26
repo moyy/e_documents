@@ -2,7 +2,7 @@
 
 ## 1、目的
 
-将 2D 仿射变换 的 齐次坐标 3*3矩阵，分解为 平移、反射、旋转、缩放、错切 的 组合
+将 2D 仿射变换 的 齐次坐标 3*3矩阵，分解为 平移、旋转、错切、缩放 的 组合
 
 ## 2、表示
 
@@ -87,7 +87,7 @@ $$M = \left(
 
 任何 2D 可逆变换 的 齐次矩阵  $M_{3 \times 3}$，可以表示成：
 
-$$M = T(t_x, t_y) \times R(\theta) \times Rl(r_x, r_y) \times S(x, y) \times H(h_x, 0)$$
+$$M = T(t_x, t_y) \times R(\theta) \times H(h_x, 0) \times S(x, y) $$
 
 ### 3.2、结论
 
@@ -101,12 +101,14 @@ $$M = \left(
     \end{matrix}
 \right)$$
 
+则: $M = T(t_x, t_y) \times R(\theta) \times H(h_x, 0) \times S(x, y)$
+
 |变换|表达|值|说明|
 |--|--|--|--|
-|平移|$T(t_x, t_y)$|$t_x=e$ $t_y=f$|
+|平移|$T(t_x, t_y)$|$t_x=e; t_y=f$|
 |旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|
-|缩放|$S(x, y)$|$x = \sqrt{a^2 + b^2}; y = \frac{a \times d - b \times c}{x}$|见 3.5，x，y 可正可负，可以进一步分解为：反射 和 纯缩放|
-|错切|sHear(h_x, 0), $s=tan(h_x)$|$s=\frac{a \times c + b \times d}{x^2}$|
+|错切|H($h_x$, 0)|$s=\frac{a \times c + b \times d}{a \times d - b \times c}$|$s=tan(h_x)$|
+|缩放|$S(x, y)$|$x^2 = a^2 + b^2; y = \frac{a \times d - b \times c}{x}$|x为正数，当且仅当 $a \times d - b \times c > 0$|
 
 ### 3.3、平移分量 $T(t_x, t_y)$
 
@@ -140,68 +142,54 @@ $$\left(
     \end{matrix}
 \right) \left(
     \begin{matrix}
-    x & 0 \\
-    0 & y \\
-    \end{matrix}
-\right)\left(
-    \begin{matrix}
     1 & s \\
     0 & 1 \\
     \end{matrix}
+\right) \left(
+    \begin{matrix}
+    x & 0 \\
+    0 & y \\
+    \end{matrix}
 \right) = \left(
     \begin{matrix}
-    x \times cos\theta & s \times x \times cos\theta - y \times sin\theta \\
-    x \times sin\theta & s \times x \times sin\theta + y \times cos\theta\\
+    x \times cos\theta & s \times y \times cos\theta - y \times sin\theta \\
+    x \times sin\theta & s \times y \times sin\theta + y \times cos\theta\\
     \end{matrix}
 \right)$$
 
-则：
+则: 
 
-$$
-\left\{
-\begin{cases}
-    a = x \times cos\theta \\ 
-    b = x \times sin\theta \\ 
-    c = s \times x \times cos\theta - y \times sin\theta \\
-    d = s \times x \times sin\theta + y \times cos\theta
-\end{cases}
-\right
-$$
+$$\left\{
+    \begin{cases}
+        a = x \times cos\theta \\ 
+        b = x \times sin\theta \\ 
+        c = s \times y \times cos\theta - y \times sin\theta \\
+        d = s \times y \times sin\theta + y \times cos\theta
+    \end{cases}
+\right.$$
 
-由 1式, 2式, 得: $x = \sqrt{a^2 + b^2}$
+由 1式, 2式, 得: $x^2 = a^2 + b^2$
 
 2式 / 1式, 得: $tan\theta = \frac{b}{a}$
 
 所以: **$\theta = arctan\frac{b}{a}$**
 
-由 1式，3式，得：
+由 2式，4式，得：
 
 $$
 \left\{ 
     \begin{cases}
-        c = s \times a - y \times sin\theta \\ 
-        d = s \times b + y \times cos\theta
+        y \times (s \times cos\theta - sin\theta) = c \\ 
+        y \times (s \times sin\theta + cos\theta) = d
     \end{cases}
 \right.
 $$
 
-$$
-\left\{ 
-\begin{cases}
-    y \times sin\theta = s \times a - c \\ 
-    y \times cos\theta = d - s \times b
-\end{cases}
-\right.
-$$
+$$\frac{s \times cos\theta - sin\theta}{s \times sin\theta + cos\theta} = \frac{c}{d}$$
 
-$$\frac{s \times a - c}{d - s \times b} = \frac{sin\theta}{cos\theta} = tan\theta = \frac{b}{a}$$
+则: $s = \frac{a \times c + b \times d}{a \times d - b \times c}$
 
-则: $s = \frac{a \times c + b \times d}{a^2 + b^2} = \frac{a \times c + b \times d}{x^2}$
-
-5式, 6式, 得: $y^2 = (s \times a - c)^2 + (d - s \times b)^2$
-
-$$y = \frac{a \times d - b \times c}{\sqrt{a^2+b^2}}
-   = \frac{a \times d - b \times c}{\sqrt{a^2+b^2}}$$
+代入 4式, 得: $y = \frac{a \times d - b \times c}{x}$
 
 ### 3.5、从 S 分解出 Rl: $S = Rl \times S_1$
 

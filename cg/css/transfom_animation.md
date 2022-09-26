@@ -9,13 +9,14 @@
   - [3、不可逆](#3不可逆)
   - [4、序列插入 和 变为矩阵插入的 差异](#4序列插入-和-变为矩阵插入的-差异)
   - [5、矩阵 插值](#5矩阵-插值)
-    - [5.1、矩阵 QR 分解](#51矩阵-qr-分解)
+    - [5.1、矩阵 分解](#51矩阵-分解)
     - [5.2、矩阵 插值](#52矩阵-插值)
   - [5.3、2D 矩阵分解 推导 点这里](#532d-矩阵分解-推导-点这里)
   - [6、附录：3D 变换 插值](#6附录3d-变换-插值)
     - [6.1、4 * 4 矩阵分解](#614--4-矩阵分解)
     - [6.2、进行插值](#62进行插值)
     - [6.3、将 P * T * R * S * K 变回 矩阵](#63将-p--t--r--s--k-变回-矩阵)
+    - [6.4、3D 矩阵分解 推导 点这里](#643d-矩阵分解-推导-点这里)
 
 # CSS Transform2D 动画插值
 
@@ -117,31 +118,43 @@ from, to 两个关键帧 序列 如下：
 + 输出：
   - 插值后的矩阵 matrix(a, b, c, d, e, f)
 
-### 5.1、矩阵 QR 分解
+### 5.1、矩阵 分解
 
-+ 输入：matrix(a, b, c, d, e, f) 
-  - 条件：ad - bc 不 为 0，
-+ 输出：6 个 互相独立的数字 $M = T(t_x, t_y) \times R(\theta) \times Rl(r_x, r_y) \times S(x, y) \times H(h_x, 0)$
-    
+输入：matrix(a, b, c, d, e, f) 
+
+$$M = \left(
+    \begin{matrix}
+    a & c & e \\
+    b & d & f \\
+    0 & 0 & 1 \\
+    \end{matrix}
+\right)$$
+
+条件：$(a \times d - b \times c) \ne 0$
+
+输出: 6 个 互相独立的数字 $(t_x, t_y, \theta, s, x, y)$
+
+意义: $M = T(t_x, t_y) \times R(\theta) \times H(h_x, 0) \times S(x, y)$
+
 |变换|表达|值|说明|
 |--|--|--|--|
-|平移|$T(t_x, t_y)$|$t_x=e$ $t_y=f$|
-|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|
-|缩放|$S(x, y)$|$x = \sqrt{a^2 + b^2}; y = \frac{a \times d - b \times c}{x}$|x，y 可正可负|
-|错切|sHear(h_x, 0), $s=tan(h_x)$|$s=\frac{a \times c + b \times d}{x^2}$|
+|平移|$T(t_x, t_y)$|$t_x=e; t_y=f$|
+|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|单位：弧度|
+|错切|H($h_x$, 0)|$s=\frac{a \times c + b \times d}{a \times d - b \times c}$|$h_x=arctan(s)$|
+|缩放|$S(x, y)$|$x^2 = a^2 + b^2; y = \frac{a \times d - b \times c}{x}$|x为正数，当且仅当 $a \times d - b \times c > 0$|
 
 ### 5.2、矩阵 插值
 
 操作：
 
 + 1、分解
-  - 将 from 的 M 通过 5.1 得到 6个数字  tx1, ty1, r1, x1, y1, s1
-  - 将   to 的 M 通过 5.1 得到 6个数字  tx2, ty2, r2, x2, y2, s2
+  - 将 from 的 M 通过 5.1 得到 6个数字  tx1, ty1, r1, x1, s1, y1, 
+  - 将   to 的 M 通过 5.1 得到 6个数字  tx2, ty2, r2, x2, s2, y2
 + 2、结果：
-  - from = tx1, ty1, r1, x1, y1, s1
-  -   to = tx1, ty1, r1, x1, y1, s1
+  - from = tx1, ty1, r1, s1, x1, y1
+  -   to = tx2, ty2, r2, s2, x2, y2
 + 3、逐个数字 依次 插值
-  - r = tx, ty, r, x, y, s
+  - r = tx, ty, r, s, x, y
 + 4、将 r 还原为 矩阵 matrix(a, b, c, d, e, f)
 
 $$
