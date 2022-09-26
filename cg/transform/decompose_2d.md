@@ -127,6 +127,8 @@ $$M = \left(
 + $$t_x = e$$
 + $$t_y = f$$
 
+### 3.4、QR 分解
+
 已知：
 
 $$M_1 = \left(
@@ -135,8 +137,6 @@ $$M_1 = \left(
     b & d \\
     \end{matrix}
 \right)$$
-
-### 3.4、QR 分解
 
 $$M_1 = R(\theta) \times S(x, y) \times H(h_x, 0)$$
 
