@@ -209,7 +209,7 @@ y = \frac{a \times d - b \times c}{\sqrt{a^2+b^2}}
   = \frac{a \times d - b \times c}{\sqrt{a^2+b^2}}
 $$
 
-### 3.5、从 S 分解出 Rl：$S = Rl \times S_1$
+### 3.5、从 S 分解出 Rl: $S = Rl \times S_1$
 
 $$\left(
     \begin{matrix}
@@ -250,11 +250,11 @@ $$sign(a) = \begin{cases}
     -1, x \lt 0
 \end{cases}$$
 
-**注记1**：$S1$ 的 对角线元素都是 非负数
+**注记1**: $S1$ 的 对角线元素都是 非负数
 
-**注记2**：$Rl$ 的 对角线元素都是 1，-1
+**注记2**: $Rl$ 的 对角线元素都是 1，-1
 
-**注记3**：对角阵 满足 乘法交换律
+**注记3**: 对角阵 满足 乘法交换律
 
 $$\left(
     \begin{matrix}
