@@ -115,7 +115,9 @@ $$M = \left(
 
 ### 3.4、QR 分解
 
-已知 $$M = \left(
+已知:
+
+$$M = \left(
     \begin{matrix}
     a & c \\
     b & d \\
@@ -156,14 +158,14 @@ $$\left(
 则：
 
 $$
-\left\{ 
-\begin{array}{c}
+\left\{
+\begin{cases}
     a = x \times cos\theta \\ 
     b = x \times sin\theta \\ 
     c = s \times x \times cos\theta - y \times sin\theta \\
     d = s \times x \times sin\theta + y \times cos\theta
-\end{array}
-\right. 
+\end{cases}
+\right
 $$
 
 由 1式，2式，得：$$x = \sqrt{a^2 + b^2}$$
