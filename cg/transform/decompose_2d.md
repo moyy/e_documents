@@ -209,7 +209,7 @@ $$\frac{s \times cos\theta - sin\theta}{s \times sin\theta + cos\theta} = \frac{
 + 当 $\theta = \frac{\pi}{2}$ 时, $sin\theta = 1$, $x \times sin\theta = b$, 所以 x与b同号
 + 当 $\theta = -\frac{\pi}{2}$ 时, $sin\theta = -1$, $x \times sin\theta = b$, 所以 x与b反号
 
-下面看什么时候，$\theta 处于 $(-\frac{\pi}{2}, \frac{\pi}{2})$
+下面看什么时候，$\theta$ 处于 $(-\frac{\pi}{2}, \frac{\pi}{2})$
 
 |a|b|$\theta$|x|
 |--|--|--|--|
@@ -218,7 +218,7 @@ $$\frac{s \times cos\theta - sin\theta}{s \times sin\theta + cos\theta} = \frac{
 |> 0|= 0|0|x = a > 0|
 |< 0|= 0|$\pi$|x = -a > 0|
 |< 0|< 0|($-\pi$, $-\frac{\pi}{2}$)|x与a 反号|
-|> 0|< 0|($\frac{\pi}{2}$, $\frac{\pi}$)|x与a 反号|
+|> 0|< 0|($\frac{\pi}{2}$, $\pi$)|x与a 反号|
 |= 0|> 0|$\frac{\pi}{2}$|x = b, x与b同号|
 |= 0|< 0|$-\frac{\pi}{2}$|x = -b, x与b反号|
 
