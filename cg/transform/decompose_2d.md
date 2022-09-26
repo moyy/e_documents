@@ -8,7 +8,7 @@
 
 ### 2.1、平移 Translate
 
-$$\vec{t}=\{t_x, t_y\}$$
+$\vec{t}=\{t_x, t_y\}$
 
 $$T = \left(
     \begin{matrix}
