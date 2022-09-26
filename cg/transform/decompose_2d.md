@@ -115,16 +115,16 @@ $$M = \left(
 
 ### 3.4、QR 分解
 
-已知 $M_1 = \left(
-\begin{matrix}
-a & c \\
-b & d \\
-\end{matrix}
-\right)$
+已知 $$M_1 = \left(
+    \begin{matrix}
+    a & c \\
+    b & d \\
+    \end{matrix}
+    \right)$$
 
-$$M_1 = R(\theta) \times S(x, y) \times H(h_x, 0)$$
+$M_1 = R(\theta) \times S(x, y) \times H(h_x, 0)$
 
-令 $$s = tan(h_x)$$ 则：
+令 $s = tan(h_x)$ 则：
 
 $$\left(
     \begin{matrix}
