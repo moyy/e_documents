@@ -204,10 +204,8 @@ $s = \frac{a \times c + b \times d}{a^2 + b^2} = \frac{a \times c + b \times d}{
 
 $y^2 = (s \times a - c)^2 + (d - s \times b)^2$
 
-$
-y = \frac{a \times d - b \times c}{\sqrt{a^2+b^2}}
-  = \frac{a \times d - b \times c}{\sqrt{a^2+b^2}}
-$
+$$y = \frac{a \times d - b \times c}{\sqrt{a^2+b^2}}
+   = \frac{a \times d - b \times c}{\sqrt{a^2+b^2}}$$
 
 ### 3.5、从 S 分解出 Rl: $S = Rl \times S_1$
 
