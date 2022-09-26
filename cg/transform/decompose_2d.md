@@ -16,11 +16,9 @@ $$T = \left(
     \end{matrix}
 \right)$$
 
-### 2.2、反射 Refect
+### 2.2、反射 Refect $\vec{rl}=\\{r_x, r_y\\}$
 
-$$\vec{rl}=\{r_x, r_y\}$$
-
-**注：** $$r_x, r_y \in \{1, -1\}$$
+**注：** $r_x, r_y \in \\{1, -1\\}$
 
 $$Rl = \left(
     \begin{matrix}
@@ -30,9 +28,7 @@ $$Rl = \left(
     \end{matrix}
 \right)$$
 
-### 2.3、旋转 Rotate
-
-$$\theta$$
+### 2.3、旋转 Rotate $\theta$
 
 + **单位：** $\theta$ 的单位：弧度
   - 逆时针，$\theta$ 为 正数
@@ -46,9 +42,7 @@ $$R = \left(
     \end{matrix}
 \right)$$
 
-### 2.4、缩放 Scale
-
-$$\vec{s}=\{x, y\}$$
+### 2.4、缩放 Scale $\vec{s}=\\{x, y\\}$
 
 **注：** $x, y$ 均为 非负数
 
@@ -60,12 +54,10 @@ $$S = \left(
     \end{matrix}
 \right)$$
 
-### 2.5、错切 Shear/Skew
+### 2.5、错切 Shear/Skew，$\vec{h}=\\{h_x, h_y\\}$
 
-$$\vec{h}=\{h_x, h_y\}$$
-
-+ **单位：** $h_x, h_y$ 单位是 弧度
-+ **作用：** ，将 矩阵 变 平行四边形
++ **单位: ** $h_x, h_y$ 单位是 弧度
++ **作用: ** 将 矩阵 变 平行四边形
 
 $$H = \left(
     \begin{matrix}
