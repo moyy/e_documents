@@ -1,5 +1,11 @@
 # 2D 变换矩阵 分解
 
+$\theta=x^2$
+
+du $\theta=x^2$
+
+度 $\theta=x^2$
+
 度 变 弧度：$\theta=x^2$
 
 弧度 变 度：$x\degree=180\degree\frac{\theta}{\pi}$
