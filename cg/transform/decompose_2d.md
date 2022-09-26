@@ -217,8 +217,8 @@ $$\frac{s \times cos\theta - sin\theta}{s \times sin\theta + cos\theta} = \frac{
 |< 0|> 0|$(-\frac{\pi}{2}, 0)$|x与a同号|
 |> 0|= 0|0|x = a > 0|
 |< 0|= 0|$\pi$|x = -a > 0|
-|< 0|< 0|(-$\pi$,-$\frac{\pi}{2}$)|x与a 反号|
-|> 0|< 0|($\frac{\pi}{2}$,$\pi$)|x与a 反号|
+|< 0|< 0|$(-\pi,-\frac{\pi}{2})|x与a 反号|
+|> 0|< 0|$(\frac{\pi}{2},\pi)$|x与a 反号|
 |= 0|> 0|$\frac{\pi}{2}$|x = b, x与b同号|
 |= 0|< 0|$-\frac{\pi}{2}$|x = -b, x与b反号|
 
