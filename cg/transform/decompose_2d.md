@@ -1,7 +1,5 @@
 # 2D 变换矩阵 分解
 
-我们： $\sqrt{3x-1}+(1+x)^2$
-
 ## 1、目的
 
 将 2D 仿射变换 的 齐次坐标 3*3矩阵，分解为 平移、反射、旋转、缩放、错切 的 组合
@@ -10,13 +8,13 @@
 
 ### 2.1、平移 Translate：$\vec{t}=\{t_x, t_y\}$
 
-$T = \left(
+$$T = \left(
     \begin{matrix}
     1 & 0 & t_x \\
     0 & 0 & t_y \\
     0 & 0 & 1 \\
     \end{matrix}
-\right)$
+\right)$$
 
 ### 2.2、反射 Refect：$\vec{rl}=\{r_x, r_y\}$
 
