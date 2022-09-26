@@ -176,21 +176,26 @@ $$
 
 由 1式，3式，得：
 
-$\left\{ 
-\begin{cases}
-    c = s \times a - y \times sin\theta \\ 
-    d = s \times b + y \times cos\theta
-\end{cases}
-\right.$
+$$
 
-$\left\{ 
+\left\{ 
+    \begin{cases}
+        c = s \times a - y \times sin\theta \\ 
+        d = s \times b + y \times cos\theta
+    \end{cases}
+\right.
+$$
+
+$$
+\left\{ 
 \begin{cases}
     y \times sin\theta = s \times a - c \\ 
     y \times cos\theta = d - s \times b
 \end{cases}
-\right.$
+\right.
+$$
 
-$\frac{s \times a - c}{d - s \times b} = \frac{sin\theta}{cos\theta} = tan\theta = \frac{b}{a}$
+$$\frac{s \times a - c}{d - s \times b} = \frac{sin\theta}{cos\theta} = tan\theta = \frac{b}{a}$$
 
 则: 
 
