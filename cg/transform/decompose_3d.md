@@ -32,27 +32,77 @@
 
 $P(p_x, p_y, p_z, p_w)$
 
+$$P = \left(
+    \begin{matrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    p_x & p_y & p_z & p_w
+    \end{matrix}
+\right)$$
+
+CSS 3D的 Perspective(d)
+
+$$P = \left(
+    \begin{matrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & -\frac{1}{d} & 1
+    \end{matrix}
+\right)$$
+
 ### 2.2、平移 Translate
 
 $T(t_x, t_y, t_z)$
 
+$$T = \left(
+    \begin{matrix}
+    1 & 0 & 0 & t_x \\
+    0 & 1 & 0 & t_y \\
+    0 & 0 & 1 & t_z \\
+    0 & 0 & 0 & 1
+    \end{matrix}
+\right)$$
+
 ### 2.3、旋转 Rotate
 
-$R(q_x, q_y, q_z, q_w)$
++ 轴-角 表示 绕 单位向量 $\vec{r}$ 旋转 $\alpha$ 弧度
++ 欧拉角 表示 $\alpha_x, \beta_y, \gamma_z$
++ 单位四元数 表示 $R(q_x, q_y, q_z, q_w)$
++ 正交矩阵 表示 $Q$, 注 $QQ^T=I, |Q|=1$
 
 ### 2.4、错切 Shear / Skew
 
 $H(h_x, h_y, h_z)$
 
+$$H = \left(
+    \begin{matrix}
+    1 & h_x & h_y & 0 \\
+    0 & 1 & h_z & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+    \end{matrix}
+\right)$$
+
 ### 2.5、缩放 Scale
 
 $S(x, y, z)$
+
+$$S = \left(
+    \begin{matrix}
+    x & 0 & 0 & 0 \\
+    0 & y & 0 & 0 \\
+    0 & 0 & z & 0 \\
+    0 & 0 & 0 & 1
+    \end{matrix}
+\right)$$
 
 ## 3、4*4 矩阵 分解
 
 ### 3.1、概述
 
-向量(齐次坐标 表示), $\vec{v} = \\{v_x, v_y, v_z, 1\\}$
+向量(齐次坐标 表示), $\vec{v} = \{v_x, v_y, v_z, 1\}$
 
 矩阵(齐次坐标 表示)
 
