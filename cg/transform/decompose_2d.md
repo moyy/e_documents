@@ -1,17 +1,17 @@
 - [2D 变换矩阵 分解](#2d-变换矩阵-分解)
   - [1、目的](#1目的)
   - [2、表示](#2表示)
-    - [2.1、平移 Translate $\vec{t}=\\{t_x, t_y\\}$](#21平移-translate-vectt_x-t_y)
-    - [2.2、反射 Refect $\vec{rl}=\\{r_x, r_y\\}$](#22反射-refect-vecrlr_x-r_y)
-    - [2.3、旋转 Rotate $\theta$](#23旋转-rotate-theta)
-    - [2.4、缩放 Scale $\vec{s}=\\{x, y\\}$](#24缩放-scale-vecsx-y)
-    - [2.5、错切 Shear/Skew,  $\vec{h}=\\{h_x, h_y\\}$](#25错切-shearskew--vechh_x-h_y)
+    - [2.1、平移 Translate](#21平移-translate)
+    - [2.2、反射 Refect](#22反射-refect)
+    - [2.3、旋转 Rotate](#23旋转-rotate)
+    - [2.4、缩放 Scale](#24缩放-scale)
+    - [2.5、错切 Shear/Skew](#25错切-shearskew)
   - [3、矩阵分解](#3矩阵分解)
     - [3.1、概述](#31概述)
     - [3.2、结论](#32结论)
-    - [3.3、平移分量 $T(t_x, t_y)$](#33平移分量-tt_x-t_y)
+    - [3.3、平移分量](#33平移分量)
     - [3.4、QR 分解](#34qr-分解)
-    - [3.5、从 S 分解出 Rl: $S = Rl \times S_1 = S_1 \times Rl$](#35从-s-分解出-rl-s--rl-times-s_1--s_1-times-rl)
+    - [3.5、从 S 分解出 反射 Rl](#35从-s-分解出-反射-rl)
   - [4、附录：弧度 和 度 的 转换](#4附录弧度-和-度-的-转换)
   - [5、参考](#5参考)
 
@@ -23,7 +23,9 @@
 
 ## 2、表示
 
-### 2.1、平移 Translate $\vec{t}=\\{t_x, t_y\\}$
+### 2.1、平移 Translate
+
+$\vec{t}=\{t_x, t_y\}$
 
 $$T = \left(
     \begin{matrix}
@@ -33,9 +35,11 @@ $$T = \left(
     \end{matrix}
 \right)$$
 
-### 2.2、反射 Refect $\vec{rl}=\\{r_x, r_y\\}$
+### 2.2、反射 Refect
 
-**注：** $r_x, r_y \in \\{1, -1\\}$
+$\vec{rl}=\{r_x, r_y\}$
+
+**注:** $r_x, r_y \in \{1, -1\}$
 
 $$Rl = \left(
     \begin{matrix}
@@ -45,7 +49,9 @@ $$Rl = \left(
     \end{matrix}
 \right)$$
 
-### 2.3、旋转 Rotate $\theta$
+### 2.3、旋转 Rotate
+
+$\theta$
 
 + **单位：** $\theta$ 的单位：弧度
   - 逆时针, $\theta$ 为 正数
@@ -59,7 +65,9 @@ $$R = \left(
     \end{matrix}
 \right)$$
 
-### 2.4、缩放 Scale $\vec{s}=\\{x, y\\}$
+### 2.4、缩放 Scale
+
+$\vec{s}=\{x, y\}$
 
 **注：** $x, y$ 均为 非负数
 
@@ -71,7 +79,9 @@ $$S = \left(
     \end{matrix}
 \right)$$
 
-### 2.5、错切 Shear/Skew,  $\vec{h}=\\{h_x, h_y\\}$
+### 2.5、错切 Shear/Skew
+
+$\vec{h}=\{h_x, h_y\}$
 
 + **单位: ** $h_x, h_y$ 单位是 弧度
 + **作用: ** 将 矩阵 变 平行四边形
@@ -88,7 +98,7 @@ $$H = \left(
 
 ### 3.1、概述
 
-向量(齐次坐标 表示), $\vec{v} = \\{v_x, v_y, 1\\}$
+向量(齐次坐标 表示), $\vec{v} = \{v_x, v_y, 1\}$
 
 矩阵(齐次坐标 表示)
 
@@ -127,7 +137,9 @@ $$M = \left(
 |错切|$H(h_x, 0)$|$h_x=Math.atan(\frac{a \times c + b \times d}{a \times d - b \times c})$|$h_x \in (-\frac{\pi}{2}, \frac{\pi}{2})$|
 |缩放|$S(x, y)$|$x = \sqrt{a^2 + b^2}; y = \frac{a \times d - b \times c}{x}$|x > 0|
 
-### 3.3、平移分量 $T(t_x, t_y)$
+### 3.3、平移分量
+
+$T(t_x, t_y)$
 
 + $t_x = e$
 + $t_y = f$
@@ -210,7 +222,9 @@ $$\frac{s \times cos\theta - sin\theta}{s \times sin\theta + cos\theta} = \frac{
 
 代入 4式, 得: $y = \frac{a \times d - b \times c}{x}$
 
-### 3.5、从 S 分解出 Rl: $S = Rl \times S_1 = S_1 \times Rl$
+### 3.5、从 S 分解出 反射 Rl
+
+$S = Rl \times S_1 = S_1 \times Rl$
 
 $$\left(
     \begin{matrix}
