@@ -1,19 +1,19 @@
 - [3D 变换矩阵 分解](#3d-变换矩阵-分解)
   - [1、目的](#1目的)
   - [2、表示](#2表示)
-    - [2.1、透视 Perspective, $P(p_x, p_y, p_z, p_w)$](#21透视-perspective-pp_x-p_y-p_z-p_w)
-    - [2.2、平移 Translate, $T(t_x, t_y, t_z)$](#22平移-translate-tt_x-t_y-t_z)
-    - [2.3、旋转 Rotate, $R(q_x, q_y, q_z, q_w)$](#23旋转-rotate-rq_x-q_y-q_z-q_w)
-    - [2.4、错切 Shear / Skew, $H(h_x, h_y, h_z)$](#24错切-shear--skew-hh_x-h_y-h_z)
-    - [2.5、缩放 Scale, $S(x, y, z)$](#25缩放-scale-sx-y-z)
+    - [2.1、透视 Perspective](#21透视-perspective)
+    - [2.2、平移 Translate](#22平移-translate)
+    - [2.3、旋转 Rotate](#23旋转-rotate)
+    - [2.4、错切 Shear / Skew](#24错切-shear--skew)
+    - [2.5、缩放 Scale](#25缩放-scale)
   - [3、4*4 矩阵 分解](#344-矩阵-分解)
     - [3.1、概述](#31概述)
-    - [3.2. 透视 $P(p_x, p_y, p_z, p_w)$](#32-透视-pp_x-p_y-p_z-p_w)
-    - [3.3. 从 B 中分解出 平移 $T(t_x, t_y, t_z)$](#33-从-b-中分解出-平移-tt_x-t_y-t_z)
-    - [3.4. 从 $A_{3 \times 3}$ 分解出 旋转 $R(q_x, q_y, q_z, q_w)$](#34-从-a_3-times-3-分解出-旋转-rq_x-q_y-q_z-q_w)
-      - [3.4.1. 确定 $r_{00}, r_{11}, r_{22}$ 的 正负](#341-确定-r_00-r_11-r_22-的-正负)
+    - [3.2. 透视](#32-透视)
+    - [3.3. 从 B 中分解出 平移](#33-从-b-中分解出-平移)
+    - [3.4. 从 A 分解出 旋转](#34-从-a-分解出-旋转)
+      - [3.4.1. 确定 平方根 的 正负](#341-确定-平方根-的-正负)
       - [3.4.2. 求 四元数](#342-求-四元数)
-    - [3.5. 从 R 分解出 错切 $H(h_x, h_y, h_z)$ 和 缩放 $S(x, y, z)$](#35-从-r-分解出-错切-hh_x-h_y-h_z-和-缩放-sx-y-z)
+    - [3.5. 从 R 分解出 错切 和 缩放](#35-从-r-分解出-错切-和-缩放)
   - [4、参考](#4参考)
 
 # 3D 变换矩阵 分解
@@ -24,15 +24,25 @@
 
 ## 2、表示
 
-### 2.1、透视 Perspective, $P(p_x, p_y, p_z, p_w)$
+### 2.1、透视 Perspective
 
-### 2.2、平移 Translate, $T(t_x, t_y, t_z)$
+$P(p_x, p_y, p_z, p_w)$
 
-### 2.3、旋转 Rotate, $R(q_x, q_y, q_z, q_w)$
+### 2.2、平移 Translate
 
-### 2.4、错切 Shear / Skew, $H(h_x, h_y, h_z)$
+$T(t_x, t_y, t_z)$
 
-### 2.5、缩放 Scale, $S(x, y, z)$
+### 2.3、旋转 Rotate
+
+$R(q_x, q_y, q_z, q_w)$
+
+### 2.4、错切 Shear / Skew
+
+$H(h_x, h_y, h_z)$
+
+### 2.5、缩放 Scale
+
+$S(x, y, z)$
 
 ## 3、4*4 矩阵 分解
 
@@ -57,7 +67,9 @@ $$M = \left(
 
 $$M = P(p_x, p_y, p_z, p_w) \times T(t_x, t_y, t_z) \times R(q_x, q_y, q_z, q_w) \times H(h_x, h_y, h_z) \times S(x, y, z)$$
 
-### 3.2. 透视 $P(p_x, p_y, p_z, p_w)$
+### 3.2. 透视
+
+$P(p_x, p_y, p_z, p_w)$
 
 将 M 分成 如下 4部分
 
@@ -151,7 +163,9 @@ $$B = \left(
     \end{matrix}
 \right)$$
 
-### 3.3. 从 B 中分解出 平移 $T(t_x, t_y, t_z)$
+### 3.3. 从 B 中分解出 平移 
+
+$T(t_x, t_y, t_z)$
 
 $$
 \left(
@@ -202,8 +216,10 @@ A_{3 \times 3} = \left(
 \right)
 $$
 
-### 3.4. 从 $A_{3 \times 3}$ 分解出 旋转 $R(q_x, q_y, q_z, q_w)$
+### 3.4. 从 A 分解出 旋转
 
++ $A_{3 \times 3}$
++ $R(q_x, q_y, q_z, q_w)$
 + A = Q R
 + Q 正交阵，且 行列式为1（否则就不是 纯旋转）
     - $QQ^T=I$
@@ -262,7 +278,9 @@ R = \left(
 \right)
 $$
 
-#### 3.4.1. 确定 $r_{00}, r_{11}, r_{22}$ 的 正负
+#### 3.4.1. 确定 平方根 的 正负
+
+$r_{00}, r_{11}, r_{22}$
 
 目标: 使得 下面 $Q = R^{-1}A$, 求出来的 Q 的行列式 为正值
 
@@ -279,7 +297,10 @@ $|R| = r_{00} \times r_{11} \times r_{22}$
 
 结论: 旋转矩阵 $Q_{3 \times 3}$ 转换成 四元数 $(q_x, q_y, q_z, q_w)$ 即为所求
 
-### 3.5. 从 R 分解出 错切 $H(h_x, h_y, h_z)$ 和 缩放 $S(x, y, z)$ 
+### 3.5. 从 R 分解出 错切 和 缩放
+
++ 错切 $H(h_x, h_y, h_z)$
++ 缩放 $S(x, y, z)$ 
 
 $$
 R = \left(
