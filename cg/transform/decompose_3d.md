@@ -124,7 +124,7 @@ $$M = P(p_x, p_y, p_z, p_w) \times T(t_x, t_y, t_z) \times R(q_x, q_y, q_z, q_w)
 ### 3.2. 结论
 
 $$
-A_{3 \times 3} = \left(
+A = A_{3 \times 3} = \left(
     \begin{matrix}
     m_{00} & m_{01} & m_{02} \\
     m_{10} & m_{11} & m_{12} \\
@@ -140,8 +140,10 @@ $$
 + 第4步: 根据 3.5, 得到 $Q = R^{-1} \times A$, 从 Q 得到 四元数
 + 第5步: 根据 3.5, $A = Q \times R$, 得到 $A^{-1} = R^{-1} \times Q^{-1} = R^{-1} \times Q^T$
 + 第6步: 根据 3.3 得到 P
-    - $\vec{p} = (A^{-1})^T \times \vec{m_p}$
-    - $p_w = m_{33} - dot(\vec{p}, \vec{m_t})$
+  - 如 $\vec{m_p} = \vec{0}$, 则 $(p_x,p_y,p_z,p_w)=(0, 0, 0, m_{33})$
+  - 否则
+      * $\vec{p} = (A^{-1})^T \times \vec{m_p}$
+      * $p_w = m_{33} - dot(\vec{p}, \vec{m_t})$
 
 ### 3.3. 从 M 分解出 透视
 
@@ -164,7 +166,7 @@ A_{3 \times 3} = \left(
 \right)
 $$
 
-+ 条件 $|A_{3 \times 3}| \ne 0$ 且 $m_{33} \ne 0$
++ 条件: $|A_{3 \times 3}| \ne 0$ 且 $m_{33} \ne 0$
 + 如 $\vec{m_p}^T = (0, 0, 0)$, 则 $(p_x, p_y, p_z, p_w) = (0, 0, 0,  m_{33})$
 + 否则，往下继续 计算
 
