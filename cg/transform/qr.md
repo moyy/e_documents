@@ -46,7 +46,7 @@ Q = \left(
     \end{matrix}
 \right) = (\vec{q}_1, \vec{q}_2, \vec{q}_3)
 $$
-
+ 
 $$
 R = \left(
     \begin{matrix}
