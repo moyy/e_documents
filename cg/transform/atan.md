@@ -21,14 +21,18 @@ $\theta$ = Math.atan2(y, x)
 
 + 定义域: $x, y \in (-\infty, \infty)$
 + 值域: $z \in (-\pi, \pi)$
-+ x > 0, y > 0, 第1象限, $\theta \in (0, \frac{\pi}{2})$
-+ x < 0, y > 0, 第2象限, $\theta \in (\frac{\pi}{2}, \pi)$
-+ x < 0, y < 0, 第3象限, $\theta \in (-\pi, -\frac{\pi}{2})$
-+ x > 0, y < 0, 第4象限, $\theta \in (-\frac{\pi}{2}, 0)$
-+ x = 0, y > 0, $\theta = \frac{\pi}{2}$
-+ x = 0, y < 0, $\theta = -\frac{\pi}{2}$
-+ x > 0, y = 0, $\theta = 0$
-+ x < 0, y = 0, $\theta = \pi$
+
+
+|x|y|象限|$\theta$|
+|--|--|--|--|
+|> 0|> 0|第1象限|$(0, \frac{\pi}{2})$|
+|< 0|> 0|第2象限|$(\frac{\pi}{2}, \pi)$|
+|< 0|< 0|第3象限|$(-\pi, -\frac{\pi}{2})$|
+|> 0|< 0|第4象限|$(-\frac{\pi}{2}, 0)$|
+|= 0|> 0|y轴 正向|$\frac{\pi}{2}$|
+|= 0|< 0|y轴 负向|$-\frac{\pi}{2}$|
+|> 0|= 0|x轴 正向|0|
+|< 0|= 0|x轴 负向|$\pi$|
 
 ## 3. 应用
 
