@@ -8,13 +8,16 @@
     - [2.5、缩放 Scale](#25缩放-scale)
   - [3、4*4 矩阵 分解](#344-矩阵-分解)
     - [3.1、概述](#31概述)
-    - [3.2. 透视](#32-透视)
-    - [3.3. 从 B 中分解出 平移](#33-从-b-中分解出-平移)
-    - [3.4. 从 A 分解出 旋转](#34-从-a-分解出-旋转)
-      - [3.4.1. 确定 平方根 的 正负](#341-确定-平方根-的-正负)
-      - [3.4.2. 求 四元数](#342-求-四元数)
-    - [3.5. 从 R 分解出 错切 和 缩放](#35-从-r-分解出-错切-和-缩放)
-    - [3.6、从 S 分解出 反射 Rl](#36从-s-分解出-反射-rl)
+    - [3.2. 结论](#32-结论)
+    - [3.3. 从 M 分解出 透视](#33-从-m-分解出-透视)
+    - [3.4. 从 B 中分解出 平移](#34-从-b-中分解出-平移)
+    - [3.5. 从 A 分解出 旋转](#35-从-a-分解出-旋转)
+      - [3.5.1. 确定 平方根 的 正负](#351-确定-平方根-的-正负)
+      - [3.5.2. 求 四元数](#352-求-四元数)
+    - [3.6. 从 R 分解出 错切 和 缩放](#36-从-r-分解出-错切-和-缩放)
+      - [3.6.1 求 S 的 逆矩阵](#361-求-s-的-逆矩阵)
+      - [3.6.2 求 H 的 逆矩阵](#362-求-h-的-逆矩阵)
+    - [3.7、从 S 分解出 反射 Rl](#37从-s-分解出-反射-rl)
   - [4、参考](#4参考)
 
 # 3D 变换矩阵 分解
@@ -68,14 +71,36 @@ $$M = \left(
 
 $$M = P(p_x, p_y, p_z, p_w) \times T(t_x, t_y, t_z) \times R(q_x, q_y, q_z, q_w) \times H(h_x, h_y, h_z) \times S(x, y, z)$$
 
-### 3.2. 透视
+### 3.2. 结论
+
+$$
+A_{3 \times 3} = \left(
+    \begin{matrix}
+    m_{00} & m_{01} & m_{02} \\
+    m_{10} & m_{11} & m_{12} \\
+    m_{20} & m_{21} & m_{22}
+    \end{matrix}
+\right)
+$$
+
++ 条件: $|A| \ne 0$
++ 第1步: 根据 3.5, 从 A 中 分解 R
++ 第2步: 根据 3.6, 从 R 中 分解 $R=H \times S$
++ 第3步: 根据 3.6.2, 得到 $R^{-1} = S^{-1} \times H^{-1}$
++ 第4步: 根据 3.5, 得到 $Q = R^{-1} \times A$, 从 Q 得到 四元数
++ 第5步: 根据 3.5, $A = Q \times R$, 得到 $A^{-1} = R^{-1} \times Q^{-1} = R^{-1} \times Q^T$
++ 第6步: 根据 3.3 得到 P
+    - $\vec{p} = (A^{-1})^T \times \vec{m_p}$
+    - $p_w = m_{33} - dot(\vec{p}, \vec{m_t})$
+
+### 3.3. 从 M 分解出 透视
 
 $P(p_x, p_y, p_z, p_w)$
 
 将 M 分成 如下 4部分
 
 + $A_{3 \times 3}$ 是 M 左上角 3*3 的 子矩阵
-+ $\vec{t}$ 是 $\{m_{03}, m_{13}, m_{23}\}$ 组成的 列向量
++ $\vec{m_t}$ 是 $\{m_{03}, m_{13}, m_{23}\}$ 组成的 列向量
 + $\vec{m_p}^T$ 是 $\{m_{30}, m_{31}, m_{32}\}$ 组成的 行向量
 + 最后是 右下角的 $m_{33}$
 
@@ -95,7 +120,7 @@ $$
 
 $$M = \left(
     \begin{matrix}
-    A_{3 \times 3} & \vec{t} \\
+    A_{3 \times 3} & \vec{m_t} \\
     \vec{m_p}^T & m_{33}
     \end{matrix}
 \right)$$
@@ -129,7 +154,7 @@ $$
     \end{matrix}
 \right) = \left(
     \begin{matrix}
-    A_{3 \times 3} & \vec{t} \\
+    A_{3 \times 3} & \vec{m_t} \\
     \vec{m_p}^T & m_{33}
     \end{matrix}
 \right)
@@ -140,7 +165,7 @@ $$
 $$\left\{
     \begin{cases}
         B_{3 \times 3} = A_{3 \times 3} \\ 
-        \vec{b_t} = \vec{t} \\ 
+        \vec{b_t} = \vec{m_t} \\ 
         \vec{p}^TB_{3 \times 3} = \vec{m_p}^T \\
         p_w + \vec{p}^T\vec{b_t} = m_{33}
     \end{cases}
@@ -148,8 +173,8 @@ $$\left\{
 
 $$\left\{
     \begin{cases}
-        \vec{p} = inv(A_{3 \times 3}^T) \times \vec{m_p} \\
-        p_w = m_{33} - dot(\vec{p}, \vec{t})
+        \vec{p} = (A^T)^{-1} \times \vec{m_p} \\
+        p_w = m_{33} - dot(\vec{p}, \vec{m_t})
     \end{cases}
 \right.$$
 
@@ -159,19 +184,19 @@ $$\left\{
 
 $$B = \left(
     \begin{matrix}
-    A_{3 \times 3} & \vec{t} \\
+    A_{3 \times 3} & \vec{m_t} \\
     \vec{0}^T & 1
     \end{matrix}
 \right)$$
 
-### 3.3. 从 B 中分解出 平移 
+### 3.4. 从 B 中分解出 平移 
 
 $T(t_x, t_y, t_z)$
 
 $$
 \left(
     \begin{matrix}
-    I_{3} & \vec{T} \\
+    I_{3} & \vec{t} \\
     \vec{0}^T & 1
     \end{matrix}
 \right) \times \left(
@@ -181,7 +206,7 @@ $$
     \end{matrix}
 \right) = \left(
     \begin{matrix}
-    A_{3 \times 3} & \vec{t} \\
+    A_{3 \times 3} & \vec{m_t} \\
     \vec{0}^T & 1
     \end{matrix}
 \right)
@@ -190,7 +215,7 @@ $$
 $$\left\{
     \begin{cases}
         C_{3 \times 3} = A_{3 \times 3} \\ 
-        \vec{T} = \vec{t}
+        \vec{t} = \vec{m_t}
     \end{cases}
 \right.$$
 
@@ -217,7 +242,7 @@ A_{3 \times 3} = \left(
 \right)
 $$
 
-### 3.4. 从 A 分解出 旋转
+### 3.5. 从 A 分解出 旋转
 
 + $A_{3 \times 3}$
 + $R(q_x, q_y, q_z, q_w)$
@@ -279,7 +304,7 @@ R = \left(
 \right)
 $$
 
-#### 3.4.1. 确定 平方根 的 正负
+#### 3.5.1. 确定 平方根 的 正负
 
 $r_{00}, r_{11}, r_{22}$
 
@@ -292,13 +317,13 @@ $|R| = r_{00} \times r_{11} \times r_{22}$
 + 如 |A| > 0, 则 $r_{00}, r_{11}, r_{22}$ 开平方根时，取 正值
 + 如 |A| < 0, 则 $r_{00}, r_{11}, r_{22}$ 开平方根时，取 负值
 
-#### 3.4.2. 求 四元数
+#### 3.5.2. 求 四元数
 
 由 Q R = A 得到 $Q = R^{-1}A$
 
 结论: 旋转矩阵 $Q_{3 \times 3}$ 转换成 四元数 $(q_x, q_y, q_z, q_w)$ 即为所求
 
-### 3.5. 从 R 分解出 错切 和 缩放
+### 3.6. 从 R 分解出 错切 和 缩放
 
 + 错切 $H(h_x, h_y, h_z)$
 + 缩放 $S(x, y, z)$ 
@@ -330,7 +355,73 @@ $$
 + $(h_x, h_y, h_z) = (\frac{r_{01}}{r_{11}}, \frac{r_{02}}{r_{22}}, \frac{r_{12}}{r_{22}})$
 + $(x, y, z) = (r_{00}, r_{11}, r_{22})$
 
-### 3.6、从 S 分解出 反射 Rl
+#### 3.6.1 求 S 的 逆矩阵
+
+$$
+S = \left(
+    \begin{matrix}
+    r_{00} & 0 & 0 \\
+    0 & r_{11} & 0 \\
+    0 & 0 & r_{22}
+    \end{matrix}
+\right)
+$$
+
+$$
+S^{-1} = \left(
+    \begin{matrix}
+    \frac{1}{r_{00}} & 0 & 0 \\
+    0 & \frac{1}{r_{11}} & 0 \\
+    0 & 0 & \frac{1}{r_{22}}
+    \end{matrix}
+\right)
+$$
+
+#### 3.6.2 求 H 的 逆矩阵
+
+$$
+X = \left(
+    \begin{matrix}
+    1 & a & b \\
+    0 & 1 & c \\
+    0 & 0 & 1
+    \end{matrix}
+\right)
+$$
+
+$$
+X^{-1} = \left(
+    \begin{matrix}
+    1 & -a & a \times c - b \\
+    0 & 1 & -c \\
+    0 & 0 & 1
+    \end{matrix}
+\right)
+$$
+
+得到 $H^{-1}$
+
+$$
+H = \left(
+    \begin{matrix}
+    1 & \frac{r_{01}}{r_{11}} & \frac{r_{02}}{r_{22}} \\
+    0 & 1 & \frac{r_{12}}{r_{22}} \\
+    0 & 0 & 1
+    \end{matrix}
+\right)
+$$
+
+$$
+H^{-1} = \left(
+    \begin{matrix}
+    1 & -\frac{r_{01}}{r_{11}} & \frac{r_{01} \times r_{12}}{r_{11} \times r_{22}} - \frac{r_{02}}{r_{22}} \\
+    0 & 1 & -\frac{r_{12}}{r_{22}} \\
+    0 & 0 & 1
+    \end{matrix}
+\right)
+$$
+
+### 3.7、从 S 分解出 反射 Rl
 
 $S = Rl \times S_1 = S_1 \times Rl$
 
