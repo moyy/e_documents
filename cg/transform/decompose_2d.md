@@ -11,9 +11,9 @@
     - [3.2、结论](#32结论)
     - [3.3、平移分量 $T(t_x, t_y)$](#33平移分量-tt_x-t_y)
     - [3.4、QR 分解](#34qr-分解)
-    - [3.5、x 正负号 规则 推导](#35x-正负号-规则-推导)
-    - [3.6、从 S 分解出 Rl: $S = Rl \times S_1$](#36从-s-分解出-rl-s--rl-times-s_1)
+    - [3.5、从 S 分解出 Rl: $S = Rl \times S_1 = S_1 \times Rl$](#35从-s-分解出-rl-s--rl-times-s_1--s_1-times-rl)
   - [4、附录：弧度 和 度 的 转换](#4附录弧度-和-度-的-转换)
+  - [5、参考](#5参考)
 
 # 2D 变换矩阵 分解
 
@@ -88,7 +88,7 @@ $$H = \left(
 
 ### 3.1、概述
 
-向量(齐次坐标 表示), $\vec{v} = \\{v_x, v_y, v_z, 1\\}$
+向量(齐次坐标 表示), $\vec{v} = \\{v_x, v_y, 1\\}$
 
 矩阵(齐次坐标 表示)
 
@@ -123,19 +123,9 @@ $$M = \left(
 |变换|表达|值|说明|
 |--|--|--|--|
 |平移|$T(t_x, t_y)$|$t_x=e; t_y=f$||
-|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|$\theta \in [-\pi, \pi]$|
-|错切|$H(h_x, 0)$|$s=\frac{a \times c + b \times d}{a \times d - b \times c}$|$s=tan(h_x)$|
-|缩放|$S(x, y)$|$x^2 = a^2 + b^2; y = \frac{a \times d - b \times c}{x}$|x 正负号如下所示|
-
-x 正负号规则：
-
-+ a 不为0
-    - b > 0, x与a同号
-    - b < 0, x与a反号
-    - b = 0, x > 0
-+ a 不为0
-    - b > 0, x与b同号
-    - b < 0, x与b反号
+|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|$\theta \in [-\pi, \pi)$|
+|错切|$H(h_x, 0)$|$h_x=Math.atan(\frac{a \times c + b \times d}{a \times d - b \times c})$|$h_x \in (-\frac{\pi}{2}, \frac{\pi}{2})$|
+|缩放|$S(x, y)$|$x = \sqrt{a^2 + b^2}; y = \frac{a \times d - b \times c}{x}$|x > 0|
 
 ### 3.3、平移分量 $T(t_x, t_y)$
 
@@ -195,11 +185,13 @@ $$\left\{
     \end{cases}
 \right.$$
 
-由 1式, 2式, 得: $x^2 = a^2 + b^2$
-
 2式 / 1式, 得: $tan\theta = \frac{b}{a}$
 
-所以: **$\theta = arctan\frac{b}{a}$**
+所以: **$\theta = Math.atan2(b, a)$**
+
+由 1式, 2式, 得: $x^2 = a^2 + b^2$
+
+由 [这篇文章](./atan.md)，当 $\theta$ 取 Math.atan2(b, a)值时，x 永远是 正数，故 $x = \sqrt{a^2 + b^2}$
 
 由 2式，4式，得：
 
@@ -218,38 +210,7 @@ $$\frac{s \times cos\theta - sin\theta}{s \times sin\theta + cos\theta} = \frac{
 
 代入 4式, 得: $y = \frac{a \times d - b \times c}{x}$
 
-### 3.5、x 正负号 规则 推导
-
-+ $\theta$ 由 $\theta$ = Math.atan2(b, a) 唯一确定, $\theta \in [-\pi, pi]$
-+ 当 $\theta \in (-\frac{\pi}{2}, \frac{\pi}{2})$ 时, $cos\theta \gt 0$, $x \times cos\theta = a$, 所以 x与a同号
-+ 当 $\theta \in (-\pi, -\frac{\pi}{2}) \bigcup (\frac{\pi}{2}, \pi)$ 时, $cos\theta \lt 0$, $x \times cos\theta = a$, 所以 x与a反号
-+ 当 $\theta = \frac{\pi}{2}$ 时, $sin\theta = 1$, $x \times sin\theta = b$, 所以 x与b同号
-+ 当 $\theta = -\frac{\pi}{2}$ 时, $sin\theta = -1$, $x \times sin\theta = b$, 所以 x与b反号
-
-下面看什么时候, $\theta$ 处于 $(-\frac{\pi}{2}, \frac{\pi}{2})$
-
-|a|b|$\theta$|x|
-|--|--|--|--|
-|> 0|> 0|(0, $\frac{\pi}{2}$)|x与a同号|
-|< 0|> 0|$(-\frac{\pi}{2}, 0)$|x与a同号|
-|> 0|= 0|0|x = a > 0|
-|< 0|= 0|$\pi$|x = -a > 0|
-|< 0|< 0|$(-\pi,-\frac{\pi}{2})$|x与a 反号|
-|> 0|< 0|$(\frac{\pi}{2},\pi)$|x与a 反号|
-|= 0|> 0|$\frac{\pi}{2}$|x = b, x与b同号|
-|= 0|< 0|$-\frac{\pi}{2}$|x = -b, x与b反号|
-
-所以:
-
-+ a 不为0
-    - b > 0, x与a同号
-    - b < 0, x与a反号
-    - b = 0, x > 0
-+ a 不为0
-    - b > 0, x与b同号
-    - b < 0, x与b反号
-
-### 3.6、从 S 分解出 Rl: $S = Rl \times S_1$
+### 3.5、从 S 分解出 Rl: $S = Rl \times S_1 = S_1 \times Rl$
 
 $$\left(
     \begin{matrix}
@@ -327,3 +288,7 @@ $$\left(
 
 + 度 变 弧度 $\theta = \pi \frac{x\degree}{180\degree}$
 + 弧度 变 度 $x\degree=180\degree\frac{\theta}{\pi}$
+
+## 5、参考
+
++ [CSS 2D 变换插值](https://drafts.csswg.org/css-transforms/#mathematical-description)

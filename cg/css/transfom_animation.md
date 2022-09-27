@@ -11,12 +11,10 @@
   - [5、矩阵 插值](#5矩阵-插值)
     - [5.1、矩阵 分解](#51矩阵-分解)
     - [5.2、矩阵 插值](#52矩阵-插值)
-  - [5.3、2D 矩阵分解 推导 点这里](#532d-矩阵分解-推导-点这里)
-  - [6、附录：3D 变换 插值](#6附录3d-变换-插值)
+  - [6、3D 变换 插值](#63d-变换-插值)
     - [6.1、4 * 4 矩阵分解](#614--4-矩阵分解)
-    - [6.2、进行插值](#62进行插值)
+    - [6.2、插值](#62插值)
     - [6.3、将 P * T * R * S * K 变回 矩阵](#63将-p--t--r--s--k-变回-矩阵)
-    - [6.4、3D 矩阵分解 推导 点这里](#643d-矩阵分解-推导-点这里)
 
 - [CSS Transform2D 动画插值](#css-transform2d-动画插值)
   - [1、操作](#1操作)
@@ -31,12 +29,10 @@
   - [5、矩阵 插值](#5矩阵-插值)
     - [5.1、矩阵 分解](#51矩阵-分解)
     - [5.2、矩阵 插值](#52矩阵-插值)
-  - [5.3、2D 矩阵分解 推导 点这里](#532d-矩阵分解-推导-点这里)
-  - [6、附录：3D 变换 插值](#6附录3d-变换-插值)
+  - [6、3D 变换 插值](#63d-变换-插值)
     - [6.1、4 * 4 矩阵分解](#614--4-矩阵分解)
-    - [6.2、进行插值](#62进行插值)
+    - [6.2、插值](#62插值)
     - [6.3、将 P * T * R * S * K 变回 矩阵](#63将-p--t--r--s--k-变回-矩阵)
-    - [6.4、3D 矩阵分解 推导 点这里](#643d-矩阵分解-推导-点这里)
 
 # CSS Transform2D 动画插值
 
@@ -48,13 +44,13 @@
 
 ### 1.1、基本变换
 
-|变换|意思|恒等|
-|--|--|--|
-|R(r°)|旋转 a度（a>0 逆时针；否则顺时针）|R(0°)|
-|T(tx, ty)|平移 (x, y)|T(0, 0)|
-|S(x, y)|缩放 (x, y)|S(1, 1)|
-|Skew(s°, t°)|斜切变换，变换值分别为 tan(s°), tan(t°)|Skew(0°, 0°)|
-|matrix(a, b, c, d, e, f)|3*3的矩阵，从上往下，每一行依次为：(a, c, e), (b, d, f), (0, 0, 1)|matrix(1, 0, 0, 1, 0, 0)|
+|变换|作用|恒等|逆变换|
+|--|--|--|--|
+|R(r°)|旋转 a度（a>0 逆时针；否则顺时针）|R(0°)|R(-r°)|
+|T(tx, ty)|平移 (x, y)|T(0, 0)|T(-tx, -ty)|
+|S(x, y)|缩放 (x, y)|S(1, 1)|S(1/x, 1/y)|
+|Skew(s°, t°)|斜切变换，变换值分别为 tan(s°), tan(t°)|Skew(0°, 0°)|Skew(-s°, -t°)|
+|matrix(a, b, c, d, e, f)|3*3的矩阵，从上往下，每一行依次为：(a, c, e), (b, d, f), (0, 0, 1)|matrix(1, 0, 0, 1, 0, 0)|根据公式求|
 
 ### 1.2、衍生变换
 
@@ -106,7 +102,7 @@ from, to 两个关键帧 序列 如下：
 
 前两个操作相同，第三个操作开始不同：
 
-注：对 R，S，T，Skew 如何 变矩阵，[请参考这里](https://drafts.csswg.org/css-transforms/#mathematical-description)
+注：对 R，S，T，Skew 如何 变矩阵，[请参考这里](../transform/decompose_2d.md)
 
 + 将 from 的 最后三个 操作相乘，变成 矩阵 T R S = M
 + 将 to 的 最后两个 操作相乘，变成 矩阵 R T = M
@@ -140,6 +136,8 @@ from, to 两个关键帧 序列 如下：
 
 ### 5.1、矩阵 分解
 
+参考：[推导见这里](../transform/decompose_2d.md)
+
 输入：matrix(a, b, c, d, e, f) 
 
 $$M = \left(
@@ -152,58 +150,44 @@ $$M = \left(
 
 条件: $(a \times d - b \times c) \ne 0$
 
-输出: 6 个 互相独立的数字 $(t_x, t_y, \theta, s, x, y)$
+输出: 6 个 互相独立的数字 $(t_x, t_y, \theta, h_x, x, y)$
 
 意义: $M = T(t_x, t_y) \times R(\theta) \times H(h_x, 0) \times S(x, y)$
 
 |变换|表达|值|说明|
 |--|--|--|--|
 |平移|$T(t_x, t_y)$|$t_x=e; t_y=f$||
-|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|$\theta \in [-\pi, \pi]$|
-|错切|$H(h_x, 0)$|$s=\frac{a \times c + b \times d}{a \times d - b \times c}$|$s=tan(h_x)$|
-|缩放|$S(x, y)$|$x^2 = a^2 + b^2; y = \frac{a \times d - b \times c}{x}$|x 正负号如下所示|
-
-x 正负号规则：
-
-+ a 不为0
-    - b > 0, x与a同号
-    - b < 0, x与a反号
-    - b = 0, x > 0
-+ a 不为0
-    - b > 0, x与b同号
-    - b < 0, x与b反号
+|旋转|$R(\theta)$|$\theta$ = Math.atan2(b, a)|$\theta \in [-\pi, \pi)$|
+|错切|$H(h_x, 0)$|$h_x=Math.atan(\frac{a \times c + b \times d}{a \times d - b \times c})$|$h_x \in (-\frac{\pi}{2}, \frac{\pi}{2})$|
+|缩放|$S(x, y)$|$x = \sqrt{a^2 + b^2}; y = \frac{a \times d - b \times c}{x}$|x > 0|
 
 ### 5.2、矩阵 插值
 
 操作：
 
 + 1、分解
-  - 将 from 的 M 通过 5.1 得到 6个数字  tx1, ty1, r1, x1, s1, y1, 
-  - 将   to 的 M 通过 5.1 得到 6个数字  tx2, ty2, r2, x2, s2, y2
-+ 2、结果：
-  - from = tx1, ty1, r1, s1, x1, y1
-  -   to = tx2, ty2, r2, s2, x2, y2
-+ 3、逐个数字 依次 插值
-  - r = tx, ty, r, s, x, y
-+ 4、将 r 还原为 矩阵 matrix(a, b, c, d, e, f)
+  - $from = $t_{x1}, t_{y1}, r_1, h_{x1}, x_1, y_1$
+  - $to = $t_{x2}, t_{y2}, r_2, h_{x2}, x_2, y_2$
++ 2、逐个数字 依次 插值
+  - $r = t_x, t_y, r, h_x, x, y$
++ 3、将 r 还原为 矩阵 matrix(a, b, c, d, e, f)
+
+令 $s=tan(h_x)$
 
 $$
 \left(
     \begin{matrix}
-    x \times cos\theta & s \times x \times cos\theta - y \times sin\theta & t_x \\ 
-    x \times sin\theta & s \times x \times sin\theta + y \times cos\theta & t_y \\ 
-    0 & 0 & 1
+    x \times cos\theta & s \times y \times cos\theta - y \times sin\theta \\
+    x \times sin\theta & s \times y \times sin\theta + y \times cos\theta\\
     \end{matrix}
 \right)
 $$
 
-## 5.3、[2D 矩阵分解 推导 点这里](../transform/decompose_2d.md)
-
-## 6、附录：[3D 变换 插值](https://drafts.csswg.org/css-transforms-2/#funcdef-translate3d)
-
-暂时不做，基本思路如下
+## 6、3D 变换 插值
 
 ### 6.1、4 * 4 矩阵分解
+
+参考：[推导见这里](../transform/decompose_3d.md)
 
 用 QR变换 分解为 P * T * R * S * K
 
@@ -213,7 +197,7 @@ $$
 + Perspective = (px, py, pz, pw)
 + R(quaternion) = (qx, qy, qz, qw)
 
-### 6.2、进行插值
+### 6.2、插值
 
 from = P1 * T1 * R1 * S1 * K1
 
@@ -224,6 +208,3 @@ to = P2 * T2 * R2 * S2 * K2
 + 得到 插值后的 P * T * R * S * K
 
 ### 6.3、将 P * T * R * S * K 变回 矩阵
-
-### 6.4、[3D 矩阵分解 推导 点这里](../transform/decompose_3d.md)
-
