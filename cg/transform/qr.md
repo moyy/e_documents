@@ -25,17 +25,13 @@ $$
 
 ## 2、方法1：Gram–Schmidt 正交化
 
-$$
-
-A = \left(
+$$A = \left(
     \begin{matrix}
     a_{00} & a_{01} & a_{02} \\
     a_{10} & a_{11} & a_{12} \\
     a_{20} & a_{21} & a_{22}
     \end{matrix}
-\right) = (\vec{a}_1, \vec{a}_2, \vec{a}_3)
-
-$$
+\right) = (\vec{a}_1, \vec{a}_2, \vec{a}_3)$$
 
 $$
 Q = \left(
