@@ -75,7 +75,7 @@ $$\left\{
 
 例: 求 $r_{01}$, 将  点乘 $\vec{q}_1$ 即可
 
-$$\vec{a}_2 = r_{01} \times \vec{q}_1 + r_{11}  \times \vec{q}_2$$
+$\vec{a}_2=r_{01} \vec{q}_1 + r_{11} \vec{q}_2$
 
 得到 R:
 
