@@ -14,6 +14,7 @@
       - [3.4.1. 确定 平方根 的 正负](#341-确定-平方根-的-正负)
       - [3.4.2. 求 四元数](#342-求-四元数)
     - [3.5. 从 R 分解出 错切 和 缩放](#35-从-r-分解出-错切-和-缩放)
+    - [3.6、从 S 分解出 Rl: $S = Rl \times S_1 = S_1 \times Rl$](#36从-s-分解出-rl-s--rl-times-s_1--s_1-times-rl)
   - [4、参考](#4参考)
 
 # 3D 变换矩阵 分解
@@ -328,6 +329,90 @@ $$
 
 + $(h_x, h_y, h_z) = (\frac{r_{01}}{r_{11}}, \frac{r_{02}}{r_{22}}, \frac{r_{12}}{r_{22}})$
 + $(x, y, z) = (r_{00}, r_{11}, r_{22})$
+
+### 3.6、从 S 分解出 Rl: $S = Rl \times S_1 = S_1 \times Rl$
+
+$$\left(
+    \begin{matrix}
+    x & 0 & 0 \\
+    0 & y & 0 \\
+    0 & 0 & z
+    \end{matrix}
+\right) = \left(
+    \begin{matrix}
+    sign(x) & 0 & 0 \\
+    0 & sign(y) & 0 \\
+    0 & 0 & sign(z)
+    \end{matrix}
+\right) \left(
+    \begin{matrix}
+    |x| & 0 & 0 \\
+    0 & |y| & 0 \\
+    0 & 0 & |z|
+    \end{matrix}
+\right)$$
+
+$$Rl = \left(
+    \begin{matrix}
+    sign(x) & 0 & 0 \\
+    0 & sign(y) & 0 \\
+    0 & 0 & sign(z)
+    \end{matrix}
+\right)$$
+
+$$S_1 = \left(
+    \begin{matrix}
+    |x| & 0 & 0 \\
+    0 & |y| & 0 \\
+    0 & 0 & |z|
+    \end{matrix}
+\right)$$
+
+其中: $sign(a)$ 是 符号函数，取 a 的 正负号
+
+$$sign(a) = \begin{cases}
+    1, x \gt 0 \\
+    0, x = 0 \\
+    -1, x \lt 0
+\end{cases}$$
+
+**注记1**: $S1$ 的 对角线元素都是 非负数
+
+**注记2**: $Rl$ 的 对角线元素都是 1，-1
+
+**注记3**: 对角阵 满足 乘法交换律
+
+$$\left(
+    \begin{matrix}
+    x & 0 & 0 \\
+    0 & y & 0 \\
+    0 & 0 & z 
+    \end{matrix}
+\right) \left(
+    \begin{matrix}
+    a & 0 & 0 \\
+    0 & b & 0 \\
+    0 & 0 & c 
+    \end{matrix}
+\right) = \left(
+    \begin{matrix}
+    a & 0 & 0 \\
+    0 & b & 0 \\
+    0 & 0 & c
+    \end{matrix}
+\right) \left(
+    \begin{matrix}
+    x & 0 & 0 \\
+    0 & y & 0 \\
+    0 & 0 & z 
+    \end{matrix}
+\right) = \left(
+    \begin{matrix}
+    x \times a & 0 & 0 \\
+    0 & y \times b & 0 \\
+    0 & 0 & z \times c 
+    \end{matrix}
+\right)$$
 
 ## 4、参考
 
