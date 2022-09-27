@@ -20,7 +20,7 @@
 $\theta$ = Math.atan2(y, x)
 
 + 定义域: $x, y \in (-\infty, \infty)$
-+ 值域: $z \in (-\pi, \pi)$
++ 值域: $z \in (-\pi, \pi]$
 
 
 |x|y|象限|$\theta$|
