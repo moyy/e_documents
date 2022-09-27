@@ -123,7 +123,7 @@ Gram–Schmidt 正交化，具体算法如下：
 
 $|Q| = \frac{|A|}{|R|} = \frac{|A|}{r_{00} \times r_{11} \times r_{22}}\gt 0$, |A|, |R| 同号
 
-$\vec{q}_{i}$ 正负 使得 $r_{ii}$ 均为 正数
+如$|A| \gt 0$, 选择 $\vec{q}_{i}$ 正负 使得 $r_{ii}$ 均为 正数
 
 $\vec{q}_i$ 正负 使得 $r_{ii}$ 均为 负数
 
