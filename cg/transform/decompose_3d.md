@@ -311,8 +311,8 @@ R = \left(
     \end{matrix}
 \right) = \left(
     \begin{matrix}
-    1 & \frac{r_{01}}{r_{00}} & \frac{r_{02}}{r_{00}} \\
-    0 & 1 & \frac{r_{12}}{r_{11}} \\
+    1 & \frac{r_{01}}{r_{11}} & \frac{r_{02}}{r_{22}} \\
+    0 & 1 & \frac{r_{12}}{r_{22}} \\
     0 & 0 & 1
     \end{matrix}
 \right) \left(
