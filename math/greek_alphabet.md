@@ -14,8 +14,8 @@
 |大写 / 小写|字母|音标|含义|
 |--|--|--|--|
 |$\alpha$ / $\alpha$|alpha|/'ælfə/||
-|$\Beta$ / $\beta$|beta|/'beɪtə/||
 |$\Gamma$ / $\gamma$|gamma|/'gæmə/|大写表示 欧拉 Gamma 函数|
+|$\Beta$ / $\beta$|beta|/'beɪtə/||
 
 ## 2、某些 专业术语
 
