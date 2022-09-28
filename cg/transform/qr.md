@@ -25,17 +25,13 @@ $$
 
 ## 2、方法1：Gram–Schmidt 正交化
 
-$$
-
-A = \left(
+$$A = \left(
     \begin{matrix}
     a_{00} & a_{01} & a_{02} \\
     a_{10} & a_{11} & a_{12} \\
     a_{20} & a_{21} & a_{22}
     \end{matrix}
-\right) = (\vec{a}_1, \vec{a}_2, \vec{a}_3)
-
-$$
+\right) = (\vec{a}_1, \vec{a}_2, \vec{a}_3)$$
 
 $$
 Q = \left(
@@ -46,7 +42,7 @@ Q = \left(
     \end{matrix}
 \right) = (\vec{q}_1, \vec{q}_2, \vec{q}_3)
 $$
-
+ 
 $$
 R = \left(
     \begin{matrix}
@@ -77,7 +73,9 @@ $$\left\{
     \end{cases}
 \right.$$
 
-例子: 求 $r_{01}$, 将 $\vec{a}_2 = r_{01} \vec{q}_1 + r_{11} \vec{q}_2$ 点乘 $\vec{q}_1$ 即可
+例子: 求 $r_{01}$, 点乘 $\vec{q}_1$ 即可
+
+$$\vec{a}_2 \cdot \vec{q}_1 = \vec{q}_1 \cdot (r_{01} \vec{q}_1 + r_{11} \vec{q}_2)$$
 
 得到 R:
 
@@ -123,9 +121,23 @@ Gram–Schmidt 正交化，具体算法如下：
 
 第4步：让 |Q| 为 正数，总是代表 纯旋转
 
-+ $|Q| = \frac{|A|}{|R|} = \frac{|A|}{r_{00} \times r_{11} \times r_{22}}\gt 0$, |A|, |R| 同号
-+ 如 |A| > 0, 选择 $\vec{q}_1, \vec{q}_2, \vec{q}_3$ 正负号, 使得 $r_{00}, r_{11}, r_{22}$ 均为 正数
-+ 如 |A| < 0, 选择 $\vec{q}_1, \vec{q}_2, \vec{q}_3$ 正负号, 使得 $r_{00}, r_{11}, r_{22}$ 均为 负数
+$|Q| = \frac{|A|}{|R|} = \frac{|A|}{r_{00} \times r_{11} \times r_{22}}\gt 0$, |A|, |R| 同号
+
+如 $|A| \gt 0$ 选择
+
+$$
+\vec{q}_{1}, \vec{q}_{2}, \vec{q}_{3}
+$$
+
+的正负号，使得 $r_{00}, r_{11}, r_{22}$ 均为 正数
+
+如 $|A| \lt 0$ 选择正负 
+
+$$
+\vec{q}_{1}, \vec{q}_{2}, \vec{q}_{3}
+$$ 
+
+使得 $r_{00}, r_{11}, r_{22}$ 均为 负数
 
 ## 3、方法2：矩阵相乘
 
