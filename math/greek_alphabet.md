@@ -32,13 +32,13 @@
 
 ## 3、其他（暂时未知）
 
-|大写 / 小写|字母|音标|
-|--|--|--|
-|$\Eta$ / $\eta$|eta|/'i:tə/|
-|$\Xi$ / $\xi$|xi|/ˈksaɪ/|
-|$\Zeta$ / $\zeta$|zeta|/'zi:tə/|
-|$\Nu$ / $\nu$|nu|/nju:/|
-|$\Kappa$ / $\kappa$|kappa|/'kæpə/|
-|$\Tau$ / $\tau$|tau|/tɔ:/|
-|$\Chi$ / $\chi$|chi|/kaɪ/|
-|$\Iota$ / $\iota$|iota|/aɪ'əʊtə/|
+|大写|小写|字母|音标|
+|--|--|--|--|
+|$\Eta$|$\eta$|eta|/'i:tə/|
+|$\Xi$|$\xi$|xi|/ˈksaɪ/|
+|$\Zeta$|$\zeta$|zeta|/'zi:tə/|
+|$\Nu$|$\nu$|nu|/nju:/|
+|$\Kappa$|$\kappa$|kappa|/'kæpə/|
+|$\Tau$|$\tau$|tau|/tɔ:/|
+|$\Chi$|$\chi$|chi|/kaɪ/|
+|$\Iota$|$\iota$|iota|/aɪ'əʊtə/|
