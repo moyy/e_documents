@@ -1,0 +1,199 @@
+- [std::f32](#stdf32)
+  - [`underflow（下溢）` 浮点数 特有概念](#underflow下溢-浮点数-特有概念)
+  - [反序列化 [u8] --> f32](#反序列化-u8----f32)
+  - [序列化 f32 --> [u8]](#序列化-f32----u8)
+  - [bit-信息](#bit-信息)
+  - [比较](#比较)
+        - [total_cmp，全序 比较](#total_cmp全序-比较)
+  - [取整 & 取小数](#取整--取小数)
+  - [算术运算](#算术运算)
+  - [幂函数 & 指数 & 对数](#幂函数--指数--对数)
+  - [三角函数 & 双曲函数](#三角函数--双曲函数)
+      - [三角函数](#三角函数)
+      - [反三角函数](#反三角函数)
+      - [双曲函数](#双曲函数)
+      - [反双曲函数](#反双曲函数)
+  - [常量](#常量)
+  - [数学用到 的 浮点常量](#数学用到-的-浮点常量)
+
+# [std::f32](https://doc.rust-lang.org/std/primitive.f32.html)
+
+![](../../img/1.png)
+
+## `underflow（下溢）` 浮点数 特有概念
+
+如果计算结果，精度已经小到f32/f64无法表达，就是 `underflow`
+
+## 反序列化 [u8] --> f32
+
+|函数|作用|
+|--|--|
+|[f32::from_bits](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.from_bits)||
+|[f32::from_be_bytes](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.from_be_bytes)||
+|[f32::from_le_bytes](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.from_le_bytes)||
+|[f32::from_ne_bytes](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.from_ne_bytes)||
+
+## 序列化 f32 --> [u8]
+
+|函数|作用|
+|--|--|
+|[f32::to_bits](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.to_bits)||
+|[f32::to_be_bytes](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.to_be_bytes)||
+|[f32::to_le_bytes](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.to_le_bytes)||
+|[f32::to_ne_bytes](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.to_ne_bytes)||
+
+## bit-信息
+
+|函数|作用|
+|--|--|
+|[f32::classify](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.classify)|任何一个flaot肯定是下面类型之一：0，无穷，NaN，正规小数，非正规小数|
+|[f32::is_nan](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.is_nan)|是否NaN|
+|[f32::is_finite](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.is_finite)|是否 有限|
+|[f32::is_infinite](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.is_infinite)|是否 无穷|
+|[f32::is_sign_negative](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.is_sign_negative)|负数|
+|[f32::is_sign_positive](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.is_sign_positive)|正数|
+|[f32::is_normal](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.is_normal)|规范小数|
+|[f32::is_subnormal](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.is_subnormal)|非规范小数|
+
+## 比较
+
+##### total_cmp，全序 比较
+
+* Rust浮点数，默认只实现了PartialOrd，并没有实现Ord；
+* IEEE-754标准，2008版，提供了统一的 全序比较谓词，在rust中实现为total_cmp：
+
+**注：** 用这个东西，负0 < 正0
+
+从小到大：
+
+* 负quiet-NaN < 负signaling-NaN < 负无穷 < 负数 < 负Subnormal数 < 负0 <
+* 正0 < 正-Subnormal数 < 正数 < 正无穷 < 正signaling-NaN < 正quiet-NaN
+
+|函数|作用|说明|
+|--|--|--|
+|高级用法：[f32::total_cmp](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.total_cmp)|`全序`比较！||
+|[f32::max](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.max)|取两个数最大值||
+|[f32::min](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.min)|取两个数最小值||
+
+## 取整 & 取小数
+
+|函数|作用|
+|--|--|
+|[f32::round](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.round)|四舍五入|
+|[f32::floor](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.floor)|下取整|
+|[f32::ceil](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.ceil)|上去整|
+|[f32::trunc](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.trunc)|取整数，同 as u8等行为，朝0截断|
+|[f32::fract](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.fract)|取小数|
+|[f32::to_int_unchecked](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.to_int_unchecked)||
+
+## 算术运算
+
+|函数|作用|
+|--|--|
+|尽量使用：[f32::mul_add](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.mul_add)|b + self * a，一条指令完成两个运算，[背景点这里](https://zh.wikipedia.org/wiki/%E4%B9%98%E7%A9%8D%E7%B4%AF%E5%8A%A0%E9%81%8B%E7%AE%97)|
+|[f32::to_degrees](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.to_degrees)| 弧度 --> 角度|
+|[f32::to_radians](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.to_radians)| 角度 --> 弧度|
+|[f32::recip](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.recip)|倒数：1/x|
+|[f32::abs](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.abs)|绝对值|
+|[f32::signum](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.signum)|符号函数，-1，1，NaN|
+|[f32::copysign](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.copysign)|相当于：self * other.signum()|
+|[f32::div_euclid](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.div_euclid)|见最下面|
+|[f32::rem_euclid](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.rem_euclid)|见最下面|
+|[f32::clamp](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.clamp)|区间截断|
+
+## 幂函数 & 指数 & 对数
+
+|函数|作用|
+|--|--|
+|[f32::sqrt](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.sqrt)|平方根|
+|[f32::cbrt](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.cbrt)|立方根|
+|求长度：[f32::hypot](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.hypot)|sqrt(x^2 + y^2)|
+|[f32::powf](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.powf)|冥函数|
+|[f32::powi](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.powi)|冥函数|
+|[f32::exp](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.exp)|指数|
+|[f32::exp2](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.exp2)|指数|
+|[f32::exp_m1](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.exp_m1)|指数|
+|[f32::ln](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.ln)|对数|
+|[f32::ln_1p](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.ln_1p)|对数|
+|[f32::log](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.log)|对数|
+|[f32::log10](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.log10)|对数|
+|[f32::log2](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.log2)|对数|
+
+## 三角函数 & 双曲函数
+
+#### 三角函数
+
+|函数|作用|
+|--|--|
+|[f32::sin](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.sin)||
+|[f32::cos](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.cos)||
+|[f32::sin_cos](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.sin_cos)|一个函数取sin和cos|
+|[f32::tan](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.tan)||
+
+#### 反三角函数
+
+|函数|作用|
+|--|--|
+|[f32::asin](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.asin)||
+|[f32::acos](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.acos)||
+|[f32::atan](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.atan)||
+|[f32::atan2](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.atan2)|传两个参数，可以防止除数为0|
+
+#### 双曲函数
+
+|函数|作用|
+|--|--|
+|[f32::sinh](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.sinh)||
+|[f32::cosh](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.cosh)||
+|[f32::tanh](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.tanh)||
+
+#### 反双曲函数
+
+|函数|作用|
+|--|--|
+|[f32::asinh](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.asinh)||
+|[f32::acosh](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.acosh)||
+|[f32::atanh](https://doc.rust-lang.org/nightly/std/primitive.f32.html#method.atanh)||
+
+## 常量
+
+|名称|作用|
+|--|--|
+|常用：[f32::NAN](https://doc.rust-lang.org/nightly/std/f32/constant.NAN.html)|NaN|
+|常用：[f32::INFINITY](https://doc.rust-lang.org/nightly/std/f32/constant.INFINITY.html)|Infinity|
+|常用：[f32::NEG_INFINITY](https://doc.rust-lang.org/nightly/std/f32/constant.NEG_INFINITY.html)|-Infinity|
+|常用：[f32::EPSILON](https://doc.rust-lang.org/nightly/std/f32/constant.EPSILON.html)|ε，最小精度（数学中 通常 用于 表示 任意小的正数）|
+|常用：[f32::MIN](https://doc.rust-lang.org/nightly/std/f32/constant.MIN.html)|最小值|
+|常用：[f32::MIN_POSITIVE](https://doc.rust-lang.org/nightly/std/f32/constant.MIN_POSITIVE.html)|最小正数值|
+|常用：[f32::MAX](https://doc.rust-lang.org/nightly/std/f32/constant.MAX.html)|最大值|
+|[f32::DIGITS](https://doc.rust-lang.org/nightly/std/f32/constant.DIGITS.html)|位数：32|
+|[f32::MIN_EXP](https://doc.rust-lang.org/nightly/std/f32/constant.MIN_EXP.html)|最小 指数|
+|[f32::MAX_EXP](https://doc.rust-lang.org/nightly/std/f32/constant.MAX_EXP.html)|最大 指数|
+|[f32::MIN_10_EXP](https://doc.rust-lang.org/nightly/std/f32/constant.MIN_10_EXP.html)||
+|[f32::MAX_10_EXP](https://doc.rust-lang.org/nightly/std/f32/constant.MAX_10_EXP.html)||
+|[f32::RADIX](https://doc.rust-lang.org/nightly/std/f32/constant.RADIX.html)||
+|[f32::MANTISSA_DIGITS](https://doc.rust-lang.org/nightly/std/f32/constant.MANTISSA_DIGITS.html)||
+
+## 数学用到 的 浮点常量
+
+|名称|作用|
+|--|--|
+|常用：[f32::consts::E](https://doc.rust-lang.org/nightly/std/f32/consts/constant.E.html)|e：自然对数 的 底|
+|常用：[f32::consts::PI](https://doc.rust-lang.org/nightly/std/f32/consts/constant.PI.html)|π|
+|常用：[f32::consts::SQRT_2](https://doc.rust-lang.org/nightly/std/f32/consts/constant.SQRT_2.html)|sqrt(2)|
+|[f32::consts::FRAC_1_PI](https://doc.rust-lang.org/nightly/std/f32/consts/constant.FRAC_1_PI.html)|1/π|
+|[f32::consts::FRAC_1_SQRT_2](https://doc.rust-lang.org/nightly/std/f32/consts/constant.FRAC_1_SQRT_2.html)|	1/sqrt(2)|
+|[f32::consts::FRAC_2_PI](https://doc.rust-lang.org/nightly/std/f32/consts/constant.FRAC_2_PI.html)|2/π|
+|[f32::consts::FRAC_2_SQRT_PI](https://doc.rust-lang.org/nightly/std/f32/consts/constant.FRAC_2_SQRT_PI.html)|2/sqrt(π)|
+|[f32::consts::FRAC_PI_2](https://doc.rust-lang.org/nightly/std/f32/consts/constant.FRAC_PI_2.html)|π/2|
+|[f32::consts::FRAC_PI_3](https://doc.rust-lang.org/nightly/std/f32/consts/constant.FRAC_PI_3.html)|π/3|
+|[f32::consts::FRAC_PI_4](https://doc.rust-lang.org/nightly/std/f32/consts/constant.FRAC_PI_4.html)|π/4|
+|[f32::consts::FRAC_PI_6](https://doc.rust-lang.org/nightly/std/f32/consts/constant.FRAC_PI_6.html)|π/6|
+|[f32::consts::FRAC_PI_8](https://doc.rust-lang.org/nightly/std/f32/consts/constant.FRAC_PI_8.html)|π/8|
+|[f32::consts::LN_2](https://doc.rust-lang.org/nightly/std/f32/consts/constant.LN_2.html)|ln(2)|
+|[f32::consts::LN_10](https://doc.rust-lang.org/nightly/std/f32/consts/constant.LN_10.html)|ln(10)|
+|[f32::consts::LOG2_10](https://doc.rust-lang.org/nightly/std/f32/consts/constant.LOG2_10.html)|log2(10)|
+|[f32::consts::LOG2_E](https://doc.rust-lang.org/nightly/std/f32/consts/constant.LOG2_E.html)|log2(e)|
+|[f32::consts::LOG10_2](https://doc.rust-lang.org/nightly/std/f32/consts/constant.LOG10_2.html)|log10(2)|
+|[f32::consts::LOG10_E](https://doc.rust-lang.org/nightly/std/f32/consts/constant.LOG10_E.html)|log10(e)|
+|[f32::consts::TAU](https://doc.rust-lang.org/nightly/std/f32/consts/constant.TAU.html)|τ = 2π|
