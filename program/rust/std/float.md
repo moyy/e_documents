@@ -18,7 +18,7 @@
 
 # [std::f32](https://doc.rust-lang.org/std/primitive.f32.html)
 
-![](../../img/1.png)
+![](./img/1.png)
 
 ## `underflow（下溢）` 浮点数 特有概念
 
