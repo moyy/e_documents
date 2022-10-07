@@ -1,4 +1,5 @@
 - [std::f32](#stdf32)
+  - [参考](#参考)
   - [`underflow（下溢）` 浮点数 特有概念](#underflow下溢-浮点数-特有概念)
   - [反序列化 [u8] --> f32](#反序列化-u8----f32)
   - [序列化 f32 --> [u8]](#序列化-f32----u8)
@@ -17,6 +18,11 @@
   - [数学用到 的 浮点常量](#数学用到-的-浮点常量)
 
 # [std::f32](https://doc.rust-lang.org/std/primitive.f32.html)
+
+## 参考
+
++ [浮点数 的 概念](../../float/README.md)
++ [浮点数 的 第三方库](../third_lib/math/README.md)
 
 ![](./img/1.png)
 

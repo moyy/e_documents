@@ -1,4 +1,4 @@
-# [simba 抽象代数库](https://github.com/dimforge/simba)
+# [simba 抽象代数库](https://docs.rs/simba/latest/simba/)
 
 
 一组数学相关的 Trait，便于使用基于 SIMD 的 AoSoA（Array of Struct of Array）存储模式。
@@ -14,9 +14,9 @@
 |ClosedSub|Sized + Sub + SubAssign|封闭 运算|
 |ClosedMul|Sized + Mul + MulAssign|封闭 运算|
 |ClosedDiv|Sized + Div + DivAssign|封闭 运算|
-|Field|num_traits::Num + SimdValue + ClosedNeg|数域|
-|ComplexField|Field + SubsetOf + SupersetOf + FromPrimitive + Clone + Send + Sync + Any|复数域|
-|RealField|ComplexField + PartialOrd + num_traits::Signed + approx::RelativeEq + approx::UlpsEq|实数域|
+|Field|[Num](./num_traits.md) + SimdValue + ClosedNeg|数域|
+|ComplexField|[FromPrimitive](./num_traits.md) + Field + SubsetOf + SupersetOf + Clone + Send + Sync + Any|复数域|
+|`RealField`|ComplexField + PartialOrd + [Signed](./num_traits.md) + [RelativeEq](./approx.md) + [UlpsEq](./approx.md)|实数域|
 
 ## 2. SimdValue
 
