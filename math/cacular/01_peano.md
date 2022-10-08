@@ -121,18 +121,16 @@
 
 ### 4.1. 集合 S 的 偏序关系
 
-+ `笛卡尔积`: $S \times S$
-+ S上的`关系`R: $R \sub S \times S$
-  + $xRy, (x, y) \in R$
-+ `偏序关系`，满足以下性质
-  + `自反性` $\forall x \in S, xRx$
-  + `反对称性` $xRy = yRx \iff x = y$
-  + `传递性` $xRy \bigwedge yRz \Rightarrow xRz$
-+ `全序`: $\forall x, y \in S, x \le y \bigvee y \le x$
-+ `最小元`: $D \sub S, \exists x \in D, \forall y \in D, s.t. x \le y$
-+ `良序`: $\forall D \sub S$, D中 一定存在 `最小元`
+|概念|定义|说明|
+|--|--|--|
+|`笛卡尔积`|$S \times S$|
+|S上`关系`R|$R \sub S \times S$|$xRy, (x, y) \in R$|
+|`偏序关系`|`自反`($\forall x \in S, xRx$), `反对称`($xRy = yRx \iff x = y$),  `传递性`($xRy \bigwedge yRz \Rightarrow xRz$)|
+|`全序`|$\forall x, y \in S, x \le y \bigvee y \le x$|
+|`最小元`|$D \sub S, \exists x \in D, \forall y \in D, s.t. x \le y$|
+|`良序`|$\forall D \sub S$, D中 一定存在 `最小元`|良序 必定 是 全序|
 
-### 4.2. 证明
+### 4.2. 性质
 
 + 给定 S, D, 则 D上的最小元未必存在。
 + 给定 S, D, 如 D上最小元存在，必定是唯一的；
