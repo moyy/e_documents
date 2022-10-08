@@ -125,7 +125,7 @@
 |--|--|--|
 |`笛卡尔积`|$S \times S$|
 |S上`关系`R|$R \sub S \times S$|$xRy, (x, y) \in R$|
-|`偏序关系`|`自反`($\forall x \in S, xRx$), `反对称`($xRy = yRx \iff x = y$),  `传递性`($xRy \bigwedge yRz \Rightarrow xRz$)|
+|`偏序关系`|`自反` ( $\forall x \in S, xRx$ ), `反对称` ( $xRy = yRx \iff x = y$ ),  `传递性` ( $xRy \bigwedge yRz \Rightarrow xRz$ )|
 |`全序`|$\forall x, y \in S, x \le y \bigvee y \le x$|
 |`最小元`|$D \sub S, \exists x \in D, \forall y \in D, s.t. x \le y$|
 |`良序`|$\forall D \sub S$, D中 一定存在 `最小元`|良序 必定 是 全序|
@@ -136,7 +136,7 @@
 + 给定 S, D, 如 D上最小元存在，必定是唯一的；
 + 如果 良序，则 必定 是 全序
 + $(N, \le)$ 是 全序关系
-+ $(N, \le)$ 满足 三岐性, 任意两个数，小于等于大于 必居 其一
++ $(N, \le)$ 满足 `三岐性`, 任意两个数，小于等于大于 必居 其一
 + $(N, \le)$ 是 良序关系
 
 ## 4. 整数环 Z `格洛腾迪克` 化
