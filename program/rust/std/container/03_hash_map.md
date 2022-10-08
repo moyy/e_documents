@@ -1,6 +1,16 @@
-# [HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html)
+- [哈希表 HashMap](#哈希表-hashmap)
+  - [1. 初始化](#1-初始化)
+  - [2. 容量 & 长度 & Hash](#2-容量--长度--hash)
+  - [3. 取 K-V](#3-取-k-v)
+  - [4. 修改](#4-修改)
+  - [5. 迭代 & 元素](#5-迭代--元素)
+  - [6. enum Entry 组合子方法](#6-enum-entry-组合子方法)
 
-## 初始化
+# 哈希表 HashMap
+
+[HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html)
+
+## 1. 初始化
 
 |名称|作用|例子|说明|
 |--|--|--|--|
@@ -9,8 +19,7 @@
 |[with_capacity_and_hasher](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.with_capacity_and_hasher)||||
 |[with_hasher](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.with_hasher)||||
 
-
-## 容量 & 长度 & Hash
+## 2. 容量 & 长度 & Hash
 
 |名称|作用|例子|说明|
 |--|--|--|--|
@@ -24,7 +33,7 @@
 |[reserve](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.reserve)||||
 |[try_reserve](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.try_reserve)||||
 
-## 取 K-V
+## 3. 取 K-V
 
 |名称|作用|例子|说明|
 |--|--|--|--|
@@ -38,7 +47,7 @@
 |[values](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.values)||||
 |[values_mut](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.values_mut)||||
 
-## 修改
+## 4. 修改
 
 |名称|作用|例子|说明|
 |--|--|--|--|
@@ -49,7 +58,7 @@
 |[drain](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.drain)|清空map，返回k-v迭代器|||
 |[drain_filter](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.drain_filter)||||
 
-## 迭代 & 元素
+## 5. 迭代 & 元素
 
 |名称|作用|例子|说明|
 |--|--|--|--|
@@ -59,7 +68,7 @@
 |[raw_entry](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.raw_entry)||||
 |[raw_entry_mut](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.raw_entry_mut)||||
 
-## enum Entry 组合子方法
+## 6. enum Entry 组合子方法
 
 - 已使用：Occupied(OccupiedEntry<'a, K, V>)
 - 空slot：Vacant(VacantEntry<'a, K, V>)

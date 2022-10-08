@@ -1,21 +1,21 @@
-# [LinkedList](https://doc.rust-lang.org/std/collections/struct.LinkedList.html)
+# 双向链表 LinkedList
 
-双向链表
+[LinkedList](https://doc.rust-lang.org/std/collections/struct.LinkedList.html)
 
-## 初始化
+## 1. 初始化
 
 |名称|作用|例子|说明|
 |--|--|--|--|
 |[new](https://doc.rust-lang.org/std/collections/struct.LinkedList.html#method.new)||||
 
-## len
+## 2. len
 
 |名称|作用|例子|说明|
 |--|--|--|--|
 |[clear](https://doc.rust-lang.org/std/collections/struct.LinkedList.html#method.clear)||||
 |[len](https://doc.rust-lang.org/std/collections/struct.LinkedList.html#method.len)||||
 
-## 元素 & 迭代
+## 3. 元素 & 迭代
 
 |名称|作用|例子|说明|
 |--|--|--|--|
@@ -32,7 +32,7 @@
 |[cursor_back](https://doc.rust-lang.org/std/collections/struct.LinkedList.html#method.cursor_back)||||
 |[cursor_back_mut](https://doc.rust-lang.org/std/collections/struct.LinkedList.html#method.cursor_back_mut)||||
 
-## 修改
+## 4. 修改
 
 |名称|作用|例子|说明|
 |--|--|--|--|
