@@ -1,22 +1,22 @@
 # 第1章 自然数: 皮亚诺公理
 
-## 1. 自然数集 $\Nu$
+## 1. 自然数集 N
 
 |人话|公式|说明|
 |--|--|--|
-|e 是 自然数|$e \in \Nu$||
-|每个 自然数 都有 后继|$\forall a \in \Nu, \exists a' \in \Nu$|a' 称为 a 的 `后继`|
-|后继 是 `单射`|$\forall b, c \in \Nu, b = c \iff b' = c'$|避免 回环
-|有初始值 e|$\forall a \in \Nu, a' \ne e$|e 不是 任何自然数 的 后继|
-|`数学归纳 公理`|关于 自然数 的断言 $f(\Nu)$，当f(e)为真，且从 f(a) 为真 推出 f(a') 为 真，则  $f(\Nu)$ 均为真|
+|e 是 自然数|$e \in N$||
+|每个 自然数 都有 后继|$\forall a \in N, \exists a' \in N$|a' 称为 a 的 `后继`|
+|后继 是 `单射`|$\forall b, c \in N, b = c \iff b' = c'$|避免 回环
+|有初始值 e|$\forall a \in N, a' \ne e$|e 不是 任何自然数 的 后继|
+|`数学归纳 公理`|关于 自然数 的断言 $f(N)$，当f(e)为真，且从 f(a) 为真 推出 f(a') 为 真，则  $f(N)$ 均为真|
 
 ## 2. 加法
 
 ### 2.1. 定义
 
 + 记 e = 0, 0' = 1
-+ $\forall a \in \Nu, 0 + m = m$ 
-+ $\forall m, n \in \Nu, n' + m = (n + m)'$ 
++ $\forall a \in N, 0 + m = m$ 
++ $\forall m, n \in N, n' + m = (n + m)'$ 
 
 ### 2.2. 证明 2 + 3 = 5
 
@@ -64,8 +64,8 @@
 
 ### 3.1. 定义
 
-+ $\forall m \in \Nu, 0 * m = 0$ 
-+ $\forall m, n \in \Nu, n' * m = m + n * m$
++ $\forall m \in N, 0 * m = 0$ 
++ $\forall m, n \in N, n' * m = m + n * m$
 
 ### 3.2. 证明 2 * 3 = 6
 
@@ -116,7 +116,7 @@
 
 ## 4. 有序
 
-+ $m \le n \iff \forall m, n \in \Nu, \exists k \in \Nu, m + k = n$
++ $m \le n \iff \forall m, n \in N, \exists k \in N, m + k = n$
 + $m \lt n \iff m \le n  \bigwedge m \ne n$
 
 ### 4.1. 集合 S 的 偏序关系
@@ -139,7 +139,7 @@
 + $(N, \le)$ 满足 三岐性, 任意两个数，小于等于大于 必居 其一
 + $(N, \le)$ 是 良序关系
 
-## 4. 整数环 $\Zeta$ `格洛腾迪克` 化
+## 4. 整数环 Z `格洛腾迪克` 化
 
 ## 5. 有理数域 Q `格洛腾迪克` 化
 
