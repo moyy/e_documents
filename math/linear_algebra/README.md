@@ -1,5 +1,10 @@
 # 线性代数 笔记
 
+## 1. 索引
+
++ [向量-矩阵](./01_vector_matrix.md)
++ [行列式](./05_determinant.md)
+
 ## 来源
 
 + [The Art of Linear Algebra](https://github.com/kenjihiranabe/The-Art-of-Linear-Algebra/blob/main/The-Art-of-Linear-Algebra.pdf)
