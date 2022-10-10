@@ -13,8 +13,6 @@
 
 ## 1. 内存布局
 
-![](/uploads/rust_tech/images/m_3d67fad127c3d42372d1f9dcd1467e29_r.png)
-
 ## 2. slice & Iterator
 
 [slice方法](/docs/rust_tech/rust_tech-1cm0q70scl2bh) 和 [Iterator方法](/docs/rust_tech/rust_tech-1ckg9bg8eiqf9)
