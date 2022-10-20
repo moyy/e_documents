@@ -1,0 +1,97 @@
+- [Vulkan & D3D-12](#vulkan--d3d-12)
+  - [1. API基础](#1-api基础)
+  - [2. CommandBuffer](#2-commandbuffer)
+  - [3. DescriptorSet: 描述符](#3-descriptorset-描述符)
+  - [4. Pipeline](#4-pipeline)
+  - [5. Buffer & Texture](#5-buffer--texture)
+  - [6. RenderPass / RenderTarget](#6-renderpass--rendertarget)
+
+# Vulkan & D3D-12
+
+**注：** `n/a` 意思：“not applicable”；不适用；没实现
+
+## 1. API基础
+
+|Vulkan|DirectX 12|说明|
+|--|--|--|
+|`n/a`|IDXGIFactory4|
+|VkInstance|`n/a`|
+|VkPhysicalDevice|IDXGIAdapter1|
+|VkDevice|ID3D12Device|
+|VkQueue|ID3D12CommandQueue|
+|VkSwapchain|IDXGISwapChain3|Vulkan的 WSI层 为交换链 提供图像；DX12需要创建资源来表示图像|
+|VkFormat|DXGI_FORMAT|
+|SPIR-V|D3D12_SHADER_BYTECODE|
+|VkFence|fences|
+|VkSemaphore|`n/a`|
+|VkEvent|`n/a`|
+
+## 2. CommandBuffer
+
+|Vulkan|DirectX 12|说明|
+|--|--|--|
+|VkCommandPool|ID3D12CommandAllocator|
+|VkCommandBuffer|ID3D12CommandList/ID3D12GraphicsCommandList|
+
+Vulkan / DX12文档中有关命令池/分配器的说法用不同的词表述了该行为-但实际行为非常相似。用户可以自由地从池中分配许多命令缓冲区/列表。但是，池中只能记录一个命令缓冲区/列表。池不能在线程之间共享。因此，多个线程需要多个池。您还可以在同时提交两个命令的缓冲区/列表后立即开始记录。
+
+DX12命令列表在打开状态下创建。我觉得这很烦人，因为我习惯了Vulkan。DX12还要求并明确重置命令分配器和命令列表。这是Vulkan中的可选行为。
+
+## 3. DescriptorSet: 描述符
+
+|Vulkan|DirectX 12|说明|
+|--|--|--|
+|VkDescriptorSet|`n/a`||
+|VkDescriptorSetLayout|`n/a`||
+|VkDescriptorSetLayoutBinding|RootParameter**||
+|VkDescriptorPool|ID3D12DescriptorHeap|管理描述符本身的分配|
+
+DX12在任何给定时间最多仅支持两个绑定到命令列表的描述符堆。一台CBVSRVUAV和一台采样器。您可以具有要引用这些堆的任意多个描述符表。
+
+在Vulkan方面，对描述符池的最大描述符集数量有严格限制。在这两种方法上，您都必须对池/堆可以具有的每种类型的描述符数量进行一些手动记帐。Vulkan的描述符类型也更加明确。而在DX12上，描述符是CBVSRVUAV或采样器。
+
+DX12还具有一项功能，您可以使用SetGraphicsRootConstantBufferView快速绑定CBV。但是，SRV版本的SetGraphicsRootShaderResourceView在纹理上不起作用。它在文档中-但如果您不是一个细心的读者，可能还会花费您几个小时才能解决。
+
+## 4. Pipeline
+
+DX12 将 顶点属性 和 绑定 合并到 单个描述中。
+
+* ** RootSignature -不完全等效于VkPipelineLayout。
+
+|Vulkan|DirectX 12|说明|
+|--|--|--|
+|VkPipelineLayout|RootSignature***||
+|VkPipeline|ID3D12PipelineState||
+|VkVertexInputAttributeDescription|D3D12_INPUT_ELEMENT_DESC||
+|VkVertexInputBindingDescription|`n/a`|
+
+## 5. Buffer & Texture
+
+|Vulkan|DirectX 12|说明|
+|--|--|--|
+|VkImage|ID3D12Resource||
+|VkBuffer|ID3D12Resource||
+|uniform buffer|constant buffer||
+|index buffer|index buffer||
+|vertex buffer|vertex buffer||
+|VkSampler|sampler||
+|barriers/transitions|barriers/transitions||
+
+## 6. RenderPass / RenderTarget
+
+|Vulkan|DirectX 12|说明|
+|--|--|--|
+|VkRenderPass|render pass||
+|VkFramebuffer|collection of ID3D12Resource||
+|subpass|`n/a`||
+|`n/a`|render target||
+
+Vulkan渲染过程具有很好的自动解析功能。DX12没有此AFIAK。两种API均提供用于手动解析的功能。
+
+VkFramebuffer和DX12中的任何对象之间都不存在直接对等的关系。映射到RTV的ID3D12Resource的集合是一个宽松的相似之处。
+
+VkFramebuffer或多或少地类似于VkRenderPass使用索引引用的附件池。VkRenderPass内的子通道可以引用VkFramebuffer中的任何附件，前提是每个子通道不对同一附件进行多次引用。一次使用的颜色附件的最大数量限制为VkPhysicalDeviceLimits.maxColorAttachments。
+
+DX12的渲染目标只是由ID3D12Resource对象支持的RTV。一次使用的颜色附件的最大数量限制为D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT（8）。
+
+这两个API都要求您在创建管道对象时指定渲染目标/通道。但是，Vulkan允许您使用兼容的渲染通道，因此您不会被锁定在管线创建期间指定的渲染通道。我还没有在DX12上测试过它，但是我猜是因为它只是一个RTV，所以在DX12上也是如此。
