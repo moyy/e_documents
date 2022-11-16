@@ -1,6 +1,6 @@
 - [Servo:Pathfinder](#servopathfinder)
   - [1. 概述](#1-概述)
-    - [1.1. 性能：笔记本上](#11-性能笔记本上)
+    - [1.1. 性能](#11-性能)
     - [1.2. enum GLVersion](#12-enum-glversion)
     - [1.3. enum RendererLevel](#13-enum-rendererlevel)
   - [2. 设置深度值](#2-设置深度值)
@@ -26,14 +26,17 @@
 ## 1. 概述
 
 + GPU 渲染方案
-+ 纯 Rust 实现的 矢量图、Canvas2D API 子集、Path 渲染器；
++ 纯 Rust 实现的 矢量图、Canvas2D API 子集、Path 渲染器
 
-### 1.1. 性能：笔记本上
+### 1.1. 性能
 
-tiger.svg，1920*1080
-
-+ GL4-D3D9 方案: 300 fps；cpu 40%，gpu 40%
-+ GL4-D3D11 方案: 460 fps；cpu 14%，gpu 43%
++ 笔记本: Win-11; 64-bit
+  - CPU: AMD Ryzen 7 5800H Radeon Graphics
+  - GPU: NVIDIA GeForce RTX 3050 Ti Laptop GPU
++ 程序: tiger.svg，1920 * 1080
++ 数据
+  - GL4-D3D9 方案: 300 fps；CPU 40%，GPU 40%
+  - GL4-D3D11 方案: 460 fps；CPU 14%，GPU 43%
 
 ### 1.2. enum GLVersion
 
