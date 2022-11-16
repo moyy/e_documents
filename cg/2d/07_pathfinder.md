@@ -1,8 +1,11 @@
 - [Servo:Pathfinder](#servopathfinder)
+  - [0. 参考](#0-参考)
   - [1. 概述](#1-概述)
-    - [1.1. 性能](#11-性能)
-    - [1.2. enum GLVersion](#12-enum-glversion)
-    - [1.3. enum RendererLevel](#13-enum-rendererlevel)
+    - [1.1. enum GLVersion](#11-enum-glversion)
+    - [1.2. enum RendererLevel](#12-enum-rendererlevel)
+    - [1.3. 性能测试](#13-性能测试)
+      - [1.1. 分辨率: 1920 * 1080](#11-分辨率-1920--1080)
+      - [1.2. 分辨率: 20 * 20](#12-分辨率-20--20)
   - [2. 设置深度值](#2-设置深度值)
   - [3. Program](#3-program)
     - [3.1. "d3d9/fill" FillProgramD3D9](#31-d3d9fill-fillprogramd3d9)
@@ -17,45 +20,72 @@
     - [5.3. struct TileObjectPrimitive](#53-struct-tileobjectprimitive)
     - [5.4. struct Clip](#54-struct-clip)
     - [5.5. struct TileBatchTexture](#55-struct-tilebatchtexture)
+  - [6. 字体](#6-字体)
+  - [7. svg](#7-svg)
 
 # Servo:Pathfinder
 
 + 官方: https://github.com/servo/pathfinder
-+ fork-维护: https://github.com/GaiaWorld/pathfinder
++ fork: https://github.com/GaiaWorld/pathfinder
+  - 将 usvg 从 0.9 --> 0.24
+  - 因在 Android端 SIMD 构建有问题，暂时 在 pi_svg库 关闭 simd-feature
+
+## 0. 参考
+
++ Pathfinder
+  - [Pathfinder 架构](https://github.com/servo/pathfinder/blob/master/doc/architecture.md)
+  - [矢量图 / 字体 相关方案](https://github.com/servo/pathfinder/wiki/Related-approaches)
++ piet-gpu
+  - [piet-gpu](https://github.com/linebender/piet-gpu)
+  - [Modern GPU 2D Rendering](https://raphlinus.github.io/rust/graphics/gpu/2019/05/08/modern-2d.html)
 
 ## 1. 概述
 
-+ GPU 渲染方案
-+ 纯 Rust 实现的 矢量图、Canvas2D API 子集、Path 渲染器
+矢量图 / Canvas2D子集 / Path 渲染器
 
-### 1.1. 性能
++ SVG 支持
++ 纯 Rust 实现
++ 两套 GPU 渲染方案
++ 抗锯齿
++ 字体渲染：亚像素抗锯齿
 
-+ 笔记本: Win-11; 64-bit
-  - CPU: AMD Ryzen 7 5800H Radeon Graphics
-  - GPU: NVIDIA GeForce RTX 3050 Ti Laptop GPU
-+ 程序: tiger.svg，1920 * 1080
-+ 数据
-  - GL4-D3D9 方案: 300 fps；CPU 40%，GPU 40%
-  - GL4-D3D11 方案: 460 fps；CPU 14%，GPU 43%
+### 1.1. enum GLVersion
 
-### 1.2. enum GLVersion
-
-目前 内部-实现 的 渲染后端 API
+目前 内部-实现 的 渲染后端 API，支持: GL / GLES / Metal / WebGL2
 
 + GL3, GL 3.3+
 + GLES3, GLES 3.0+
 + GL4, GL 4.3+
 
-### 1.3. enum RendererLevel
+### 1.2. enum RendererLevel
 
 计算 和 渲染 流程
 
 + D3D9: D3D-9 / GL 3.0 / WebGL 2.0 
-    - CPU: Bin 用 rayon-并行计算 16*16 Tile
+    - CPU: Bin 用 simd + rayon 并行计算 16*16 Tile
     - GPU: fill / composite
 + D3D11: D3D-11 / GL 4.3 / Metal / Vulkan / WebGPU
     - GPU: Bin 用 计算着色器 计算 16*16 Tile
     - GPU: fill / composite
+
+### 1.3. 性能测试
+
++ 笔记本: Win-11; 64-bit
+  - CPU: AMD Ryzen 7 5800H Radeon Graphics
+  - GPU: NVIDIA GeForce RTX 3050 Ti Laptop GPU
++ 测试文件: Ghostscript_Tiger
+
+#### 1.1. 分辨率: 1920 * 1080
+
+|渲染方案|simd|no-simd|
+|--|--|--|
+|GL4-D3D9|420 fps；CPU 34%，GPU 31%|350 fps；CPU 40%，GPU 30%|
+|GL4-D3D11|478 fps；CPU 12%，GPU 40%|460 fps；CPU 12%，GPU 40%|
+
+#### 1.2. 分辨率: 20 * 20
+
++ `注：` 当 过多的 path 集中在 1-2个 tile 中时，D3D11 计算着色器 显存 过大 而 崩溃；
++ simd 的 D3D9 方案，可以达到 550 fps
 
 ## 2. 设置深度值
 
@@ -189,3 +219,13 @@ D3D9 方案中
 + page: TexturePageId,
 + sampling_flags: TextureSamplingFlags,
 + composite_op: PaintCompositeOp,
+
+## 6. 字体
+
++ 用 font-kit 将 轮廓的 二次，三次 贝塞尔曲线 录到 path
++ 然后用 canvas 2d api 渲染
+
+## 7. svg
+
++ 官方 用 usvg 0.9，支持 属性 有限
++ 目前fork一份到 GaiaWorld，升级到 usvg 0.24
