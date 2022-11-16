@@ -6,3 +6,4 @@
 + [Chrome 渲染调度](./04_chrome_composite.md)
 + [WebRender Api](./05_web_render_api.md)
 + [Svg](./06_svg.md)
++ [Servo:Pathfinder](./07_pathfinder.md)
