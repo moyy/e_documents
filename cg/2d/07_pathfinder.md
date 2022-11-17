@@ -5,7 +5,7 @@
     - [1.2. enum RendererLevel](#12-enum-rendererlevel)
     - [1.3. 性能测试](#13-性能测试)
       - [1.1. 分辨率: 1920 * 1080](#11-分辨率-1920--1080)
-      - [1.2. 分辨率: 20 * 20](#12-分辨率-20--20)
+      - [1.2. 分辨率: 13 * 13](#12-分辨率-13--13)
   - [2. 设置深度值](#2-设置深度值)
   - [3. Program](#3-program)
     - [3.1. "d3d9/fill" FillProgramD3D9](#31-d3d9fill-fillprogramd3d9)
@@ -73,7 +73,7 @@
 + 笔记本: Win-11; 64-bit
   - CPU: AMD Ryzen 7 5800H Radeon Graphics
   - GPU: NVIDIA GeForce RTX 3050 Ti Laptop GPU
-+ 测试文件: Ghostscript_Tiger
++ 测试文件: Ghostscript_Tiger.svg
 
 #### 1.1. 分辨率: 1920 * 1080
 
@@ -82,10 +82,15 @@
 |GL4-D3D9|420 fps；CPU 34%，GPU 31%|350 fps；CPU 40%，GPU 30%|
 |GL4-D3D11|478 fps；CPU 12%，GPU 40%|460 fps；CPU 12%，GPU 40%|
 
-#### 1.2. 分辨率: 20 * 20
+#### 1.2. 分辨率: 13 * 13
 
-+ `注：` 当 过多的 path 集中在 1-2个 tile 中时，D3D11 计算着色器 显存 过大 而 崩溃；
-+ simd 的 D3D9 方案，可以达到 550 fps
++ D3D-9 方案，显存 40M 左右（包括 example本身的 窗口 + 渲染目标）
++ D3D-11 用 `计算着色器` 时，如果 过多的 path 全部分配到 同一个tile，显存会因过大而崩溃；（大于 2G）
+
+|渲染方案|simd|no-simd|
+|--|--|--|
+|GL4-D3D9|570 fps；CPU 15%，GPU 15-26%|540 fps；CPU 20%，GPU 30%|
+|GL4-D3D11|因显存过大而崩溃|因显存过大而崩溃|
 
 ## 2. 设置深度值
 
