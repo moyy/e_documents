@@ -33,11 +33,22 @@
 ## 0. 参考
 
 + Pathfinder
+  - [Pathfinder 算法概述](https://nical.github.io/posts/a-look-at-pathfinder.html)
   - [Pathfinder 架构](https://github.com/servo/pathfinder/blob/master/doc/architecture.md)
   - [矢量图 / 字体 相关方案](https://github.com/servo/pathfinder/wiki/Related-approaches)
 + piet-gpu
   - [piet-gpu](https://github.com/linebender/piet-gpu)
   - [Modern GPU 2D Rendering](https://raphlinus.github.io/rust/graphics/gpu/2019/05/08/modern-2d.html)
++ lyon
+  - [lyon 相关方案](https://github.com/nical/lyon/wiki/Related-projects#tiling-approaches)
++ Glug
+  - [GPU Font Rendering: 环绕数 介绍](http://terathon.com/i3d2018_lengyel.pdf)
++ 论文  
+  - [NV Path](https://developer.download.nvidia.cn/devzone/devcenter/gamegraphics/files/opengl/gpupathrender.pdf)
+  - [Resolution Independent Curve Rendering using Programmable Graphics Hardware](https://www.microsoft.com/en-us/research/wp-content/uploads/2005/01/p1000-loop.pdf)
+  - [Random-Access Rendering of General Vector Graphics](https://hhoppe.com/ravg.pdf)
+
+![Pathfinder Crates](../img/pathfinder_crates.jpg)
 
 ## 1. 概述
 
