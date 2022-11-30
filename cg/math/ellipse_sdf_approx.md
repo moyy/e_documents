@@ -9,25 +9,27 @@
 
 ## 1. 数学 推导
 
-$z = f(\vec{p})$ 是 标量场
+![](../img/gfx05.jpg)
 
-曲线 有 $f(\vec{p})=0$ 定义
+$z = f(\vec{x})$ 是 标量场
 
-如果 点 $\vec{p}$ 使得 $f(\vec{p} + \vec{\epsilon}) = 0$, 则 $||\vec{\epsilon}||$ 就是 点 $\vec{p}$ 的 sdf
+曲线 有 $f(\vec{x})=0$ 定义
+
+如果 点 $\vec{x}$ 使得 $f(\vec{x} + \vec{\epsilon}) = 0$, 则 $||\vec{\epsilon}||$ 就是 点 $\vec{x}$ 的 sdf
 
 由 [全微分公式](https://en.wikipedia.org/wiki/Total_derivative)，有
 
-0 = $f(\vec{p} + \vec{\epsilon}) =f(\vec{p}) + \nabla f(\vec{p}) \cdot \vec{\epsilon} + o(||\vec{\epsilon}||)$
+0 = $f(\vec{x} + \vec{\epsilon}) =f(\vec{x}) + \nabla f(\vec{x}) \cdot \vec{\epsilon} + o(||\vec{\epsilon}||)$
 
 三角不等式 和 点积的柯西不等式, 得到 $||\vec{\epsilon}||$ 的 一个 下限
 
-0 = $||f(\vec{p} + \vec{\epsilon})|| \ge ||f(\vec{p})|| - ||\nabla f(\vec{p}) \cdot \vec{\epsilon}|| \ge ||f(\vec{p})|| - ||\nabla f(\vec{p})|| \times ||\vec{\epsilon}||$
+0 = $||f(\vec{x} + \vec{\epsilon})|| \ge ||f(\vec{x})|| - ||\nabla f(\vec{x}) \cdot \vec{\epsilon}|| \ge ||f(\vec{x})|| - ||\nabla f(\vec{x})|| \times ||\vec{\epsilon}||$
 
-### 点 $\vec{p}$ 在 曲线 / 曲面 $f(\vec{p}) = 0$ 的 sdf 的 近似公式
+### 点 $\vec{x}$ 在 曲线 / 曲面 $f(\vec{x}) = 0$ 的 sdf 的 近似公式
 
 注：上面用到 全微分，是 局部性质，所以 近似 只有在 f = 0 附近 的 点 比较精确，也就是 曲线 周围 比较精确；
 
-$sdf(f, \vec{p}) \ge \frac{||f(\vec{p})||}{||\nabla f(\vec{p})||}$
+$sdf(f, \vec{x}) \ge \frac{||f(\vec{x})||}{||\nabla f(\vec{x})||}$
 
 ## 2. 椭圆 sdf 估计
 
