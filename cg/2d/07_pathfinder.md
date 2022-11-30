@@ -20,8 +20,9 @@
     - [5.3. struct TileObjectPrimitive](#53-struct-tileobjectprimitive)
     - [5.4. struct Clip](#54-struct-clip)
     - [5.5. struct TileBatchTexture](#55-struct-tilebatchtexture)
-  - [6. 字体](#6-字体)
-  - [7. svg](#7-svg)
+  - [6. pathfinder_font](#6-pathfinder_font)
+  - [7. pathfinder_svg](#7-pathfinder_svg)
+  - [8. pathfinder_renderer](#8-pathfinder_renderer)
 
 # Servo:Pathfinder
 
@@ -48,7 +49,7 @@
   - [Resolution Independent Curve Rendering using Programmable Graphics Hardware](https://www.microsoft.com/en-us/research/wp-content/uploads/2005/01/p1000-loop.pdf)
   - [Random-Access Rendering of General Vector Graphics](https://hhoppe.com/ravg.pdf)
 
-![Pathfinder Crates](../img/pathfinder_crates.jpg)
+![Pathfinder Crates](../../img/pathfinder_crates.jpg)
 
 ## 1. 概述
 
@@ -188,13 +189,13 @@ D3D9 方案中
   - 积累到 65536 后，就 RendererD3D9::draw_buffered_fills
 + RenderCommand::FlushFillsD3D9
     - RendererD3D9::draw_buffered_fills();
-      * RendererD3D9::draw_fills() --> draw_elements_instanced()
+      * RendererD3D9::draw_fills() --> "d3d9/fill", draw_elements_instanced()
 + RenderCommand::DrawTilesD3D9(DrawTileBatchD3D9)
     - RendererD3D9::upload_and_draw_tiles();
-      * RendererD3D9::clip_tiles() --> draw_elements_instanced()
+      * RendererD3D9::clip_tiles() --> "d3d9/clip_copy+combine", draw_elements_instanced()
       * upload_tiles()
       * upload_z_buffer()
-      * draw_tiles() --> draw_elements_instanced()
+      * draw_tiles() --> "d3d9/tile", draw_elements_instanced()
 + RenderCommand::Finish
 
 ## 5. 数据结构
@@ -236,12 +237,74 @@ D3D9 方案中
 + sampling_flags: TextureSamplingFlags,
 + composite_op: PaintCompositeOp,
 
-## 6. 字体
+## 6. pathfinder_font
 
 + 用 font-kit 将 轮廓的 二次，三次 贝塞尔曲线 录到 path
 + 然后用 canvas 2d api 渲染
 
-## 7. svg
+## 7. pathfinder_svg
 
 + 官方 用 usvg 0.9，支持 属性 有限
 + 目前fork一份到 GaiaWorld，升级到 usvg 0.24
+
+## 8. pathfinder_renderer
+
++ Scene
+  - id: SceneId,
+  - epoch: SceneEpoch,
+  - display_list: Vec<DisplayItem>,
+  - draw_paths: Vec<DrawPath>,
+  - clip_paths: Vec<ClipPath>,
+  - palette: Palette,
+  - bounds: RectF,
+  - view_box: RectF,
++ enum DisplayItem
+    - DrawPaths(Range<DrawPathId>)
+    - PushRenderTarget(RenderTargetId)
+    - PopRenderTarget
++ DrawPath
+  - name: String,
+  - outline: Outline,
+  - paint: PaintId,
+  - clip_path: Option<ClipPathId>,
+  - fill_rule: FillRule,
+  - blend_mode: BlendMode,
++ ClipPath
+  - name: String,
+  - outline: Outline,
+  - clip_path: Option<ClipPathId>,
+  - fill_rule: FillRule,
+
+scene::build
+
++ SceneBuilder::new(...).build(executor)
++ SceneBuilder::build_paths_on_cpu
+  - build_clip_path_on_cpu
+    * Tiler.`generate_tiles`()
+      + generate_fills();
+      + prepare_tiles();
+    * send(RenderCommand::AddFillsD3D9(fills))
+  - build_draw_path_on_cpu
+    * path_object.paint()
+    * Tiler.generate_tiles()
+    * send(RenderCommand::AddFillsD3D9(fills)
+    * BuiltDrawPath::new()
++ SceneBuilder::finish_building
+  - send(RenderCommand::FlushFillsD3D9)
+  - build_tile_batches
+    * TileBatchBuilder::new
+    * for DisplayItem: `build_tile_batches_for_draw_path_display_item`
+    * send(DrawTileBatch::D3D9)
+
+generate_fills
+
++ outline.contours.iter: process_segment
++ `process_segment`: 转换成 cube_beizer，中点二分
+  - 误差因子 0.25，判断 cube-Bézier 是 平的：Kaspar Fischer, "Piecewise Linear Approximation of Bézier Curves",  
+  - `process_line_segment`
+    + fast lattice-clipping algorithm
+    + "Random-Access Rendering of General Vector Graphics" 2006.
+    + A Fast Voxel Traversal Algorithm for Ray Tracing" 1987: http://www.cse.yorku.ca/~amana/research/grid.pdf
++ cubic-Bezier 模拟 圆弧 arc
+  - https://www.tinaja.com/glib/bezcirc2.pdf
+  - "How to determine the control points of a Bézier curve that approximates a small arc", 2004.
