@@ -6,10 +6,23 @@
 
 ``` rs
 loop {
-    // 释放 窗口，前后台切换时候 会 调用一次
-    如果 窗口事件为 APP_CMD_TERM_WINDOW => KillSurface();
+    // 处理 窗口 事件
+    match event {
+        APP_CMD_START => mIsVisible = true,
+        APP_CMD_STOP => mIsVisible = false,
+        APP_CMD_LOST_FOCUS => mHasFocus = false,
+        APP_CMD_GAINED_FOCUS => mHasFocus = true,
+        APP_CMD_INIT_WINDOW => mHasWindow = true;
+        APP_CMD_TERM_WINDOW => {
+            KillSurface();
+            mHasWindow = false;
+        }
+    }
 
-    if(!IsAnimatinng()) continue; 
+    let isRunning = mHasFocus && mIsVisible && mHasWindow;
+    if !isRunning {
+        continue;
+    }
     
     // InitDisplay()
     if (mEglDisplay == EGL_NO_DISPLAY) {
@@ -106,57 +119,56 @@ void NativeEngine::KillSurface() {
     }
 }
 ```
-## 帧推 条件
 
-``` rs
-bool NativeEngine::IsAnimating() {
-    return mHasFocus && mIsVisible && mHasWindow;
-}
-
-mIsVisible:
-    APP_CMD_START 时 为 true
-    APP_CMD_STOP 时 为 false
-
-mHasFocus:
-    APP_CMD_LOST_FOCUS 时 为 false
-    APP_CMD_GAINED_FOCUS 时 为 true
-
-mHasWindow
-    APP_CMD_INIT_WINDOW 为 true
-    APP_CMD_TERM_WINDOW 为 false
-
-```
-
-## 切到 后台再 切回来 时 的 事件顺序：
+## 事件
 
 ### Activty 和 NativeActivity 的 [事件对应](https://docs.nvidia.com/tegra/Content/AN_LC_Basics_Practice.html)
 
-![](../../../img/20221207140839.jpg)
+|Java Activity 成员|NativeActivity 方法|native_app_glue 事件|
+|--|--|--|
+|onCreate|ANativeActivity_onCreate|android_main|
+|onStart|::onStart|APP_CMD_START|
+|onPause|::onPause|APP_CMD_PAUSE|
+|onResume|::onResume|APP_CMD_RESUME|
+|onStop|::onStop|APP_CMD_STOP|
+|onDestroy|::onDestroy|APP_CMD_DESTROY|
+|onWindowFocusChanged|::onWindowFocusChanged|APP_CMD_GAINED/LOST_FOCUS|
+|surfaceCreated|::onNativeWindowCreated|APP_CMD_INIT_WINDOW|
+|surfaceDestroyed|::onNativeWindowDestroyed|APP_CMD_TERM_WINDOW|
+|surfaceChanged|::onNativeWindowResized|APP_CMD_WINDOW_RESIZED|
+|onConfigurationChanged|::onConfigurationChanged|APP_CMD_CONFIG_CHANGED|
+
+### winit 0.27.5
+
+用了 第三方库 android-activity
+
+|winit 事件|android-activity 事件|NativeActivity 方法|
+|--|--|--|
+|Resumed|MainEvent::InitWindow|::onNativeWindowCreated|
+|Suspended|MainEvent::TerminateWindow|::onNativeWindowDestroyed|
+|Focused(bool)|MainEvent::LostFocus/GainedFocus|::onWindowFocusChanged|
+|ScaleFactorChanged|MainEvent::ConfigChanged|{new_inner_size, scale_factor}|onConfigurationChanged|
+|resized = true|MainEvent::WindowResized|::onNativeWindowResized|
+|redraw = true|MainEvent::RedrawNeeded|::onNativeWindowRedrawNeeded|
+|running = false|MainEvent::Pause|::onPause|
+|running = true|MainEvent::Resume|::onResume|
+|RedrawRequested||if running && redraw|
+|Resized||if running && resized|
 
 ### Pxiel4 / Android 13
 
+#### app 前台 切 后台
+
 + APP_CMD_LOST_FOCUS
 + APP_CMD_PAUSE
 + APP_CMD_TERM_WINDOW
 + APP_CMD_STOP
 + APP_CMD_SAVE_STATE
+
+#### app 后台 切 前台
+
 + APP_CMD_START
 + APP_CMD_RESUME
 + APP_CMD_INIT_WINDOW
 + APP_CMD_WINDOW_RESIZED
 + APP_CMD_GAINED_FOCUS
-
-### 小米9 / Android 10
-
-+ APP_CMD_PAUSE
-+ APP_CMD_LOST_FOCUS
-+ APP_CMD_TERM_WINDOW
-+ APP_CMD_STOP
-+ APP_CMD_SAVE_STATE
-+ APP_CMD_START
-+ APP_CMD_RESUME
-+ APP_CMD_INIT_WINDOW
-+ APP_CMD_WINDOW_RESIZED
-+ APP_CMD_GAINED_FOCUS
-
-
