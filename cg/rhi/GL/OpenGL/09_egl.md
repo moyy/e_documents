@@ -30,15 +30,42 @@ loop {
 
 ``` rs
 bool NativeEngine::HandleEglError(EGLint error) {
-  match error {
-    EGL_CONTEXT_LOST => KillContext(); mEglContext = EGL_NO_CONTEXT
-    EGL_BAD_CONTEXT => KillContext(); mEglContext = EGL_NO_CONTEXT
-    EGL_BAD_DISPLAY => KillDisplay()  mEglDisplay = EGL_NO_DISPLAY
-    EGL_BAD_SURFACE => KillSurface(); mEglSurface = EGL_NO_SURFACE
-  }
+    match error {
+        EGL_BAD_SURFACE => KillSurface();
+        EGL_CONTEXT_LOST | EGL_BAD_CONTEXT => KillContext();
+        EGL_BAD_DISPLAY => {
+            KillContext();
+            KillSurface();
+            if (mEglDisplay != EGL_NO_DISPLAY) {
+                eglTerminate(mEglDisplay);
+                mEglDisplay = EGL_NO_DISPLAY;
+            }
+        }
+    }
 }
 ```
 
+``` rs
+void NativeEngine::KillContext() {
+    eglMakeCurrent(mEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+    
+    if (mEglContext != EGL_NO_CONTEXT) {
+        eglDestroyContext(mEglDisplay, mEglContext);
+        mEglContext = EGL_NO_CONTEXT;
+    }
+}
+```
+
+``` rs
+void NativeEngine::KillSurface() {
+    eglMakeCurrent(mEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+    
+    if (mEglSurface != EGL_NO_SURFACE) {
+        eglDestroySurface(mEglDisplay, mEglSurface);
+        mEglSurface = EGL_NO_SURFACE;
+    }
+}
+```
 ## 帧推 条件
 
 ``` rs
