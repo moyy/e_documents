@@ -129,6 +129,10 @@ mHasWindow
 
 ## 切到 后台再 切回来 时 的 事件顺序：
 
+### Activty 和 NativeActivity 的 [事件对应](https://docs.nvidia.com/tegra/Content/AN_LC_Basics_Practice.html)
+
+![](../../../img/20221207140839.jpg)
+
 ### Pxiel4 / Android 13
 
 + APP_CMD_LOST_FOCUS
