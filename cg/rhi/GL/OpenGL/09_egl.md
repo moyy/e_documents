@@ -6,19 +6,59 @@
 
 ``` rs
 loop {
+    // 释放 窗口，前后台切换时候 会 调用一次
+    如果 窗口事件为 APP_CMD_TERM_WINDOW => KillSurface();
+
     if(!IsAnimatinng()) continue; 
     
-    InitDisplay(): if (mEglDisplay == EGL_NO_DISPLAY) 创建
-    InitSurface(): if (mEglSurface == EGL_NO_SURFACE) 创建
-    InitContext(): if (mEglContext == EGL_NO_CONTEXT) 创建
+    // InitDisplay()
+    if (mEglDisplay == EGL_NO_DISPLAY) {
+        mEglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+        if (EGL_FALSE == eglInitialize(mEglDisplay, 0, 0)) {
+            continue;
+        }
+    }
 
+    // InitSurface()
+    if (mEglSurface == EGL_NO_SURFACE) {
+        EGLint numConfigs;
+        const EGLint attribs[] = {EGL_RENDERABLE_TYPE,
+            EGL_OPENGL_ES2_BIT,  // request OpenGL ES 2.0
+            EGL_SURFACE_TYPE,
+            EGL_WINDOW_BIT,
+            EGL_BLUE_SIZE, 8,
+            EGL_GREEN_SIZE, 8,
+            EGL_RED_SIZE, 8,
+            EGL_DEPTH_SIZE, 16,
+            EGL_NONE
+        };
+
+        eglChooseConfig(mEglDisplay, attribs, &mEglConfig, 1, &numConfigs);
+        mEglSurface = eglCreateWindowSurface(mEglDisplay, mEglConfig, mApp->window, NULL);
+        if (mEglSurface == EGL_NO_SURFACE) {
+            continue;
+        }
+    }
+
+    // InitContext()
+    if (mEglContext == EGL_NO_CONTEXT) {
+        EGLint attribList[] = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE};
+        mEglContext = eglCreateContext(mEglDisplay, mEglConfig, NULL, attribList);
+        if (mEglContext == EGL_NO_CONTEXT) {
+            continue;
+        }
+    }
+
+    // makeCurrent
     if (EGL_FALSE == eglMakeCurrent(mEglDisplay, mEglSurface, mEglSurface, mEglContext)) {
         // 销毁代码在这里
         HandleEglError(eglGetError());
     }
     
-    // 执行真正 的 渲染逻辑，raf 等
+    // 执行 OpenGL 代码
+    // ...
 
+    // 交换 缓冲区
     if (EGL_FALSE == eglSwapBuffers(mEglDisplay, mEglSurface)) {
         // 销毁代码在这里
         HandleEglError(eglGetError());
