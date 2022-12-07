@@ -1,6 +1,6 @@
 # EGL 事件
 
-ndk-samples\endless-tunnel\app\src\main\cpp\native_engine.cpp
+[https://github.com/android/ndk-samples/tree/main/endless-tunnel](https://github.com/android/ndk-samples/blob/main/endless-tunnel/app/src/main/cpp/native_engine.cpp)
 
 ## 渲染循环
 
